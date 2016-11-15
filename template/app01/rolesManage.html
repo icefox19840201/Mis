@@ -1,0 +1,66 @@
+{% extends "Master/_layout.html" %}
+{% block content %}
+    <div class="span9" >
+    <div >
+		<a class="btn btn-primary"  href="/app01/rolemanage/?type=addrole">添加角色</a>
+        <a class="btn">删除角色</a>
+        <a class="btn" href="/app01/right/">添加权限</a>
+	</div>
+   	<table class="table table-bordered table-striped">
+						<thead>
+
+							<tr>
+                                <th>
+									<input type="checkbox" id="checked"><span>全选</span>
+								</th>
+								<th>
+									编号
+								</th>
+								<th>
+									角色代码
+								</th>
+								<th>
+									角色名称
+								</th>
+								<th>
+									显示名称
+								</th>
+								<th>
+									管理操作
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+                         {% for item in role %}
+							<tr>
+                            <td>
+									 <input type="checkbox"  style="align-content: center" id={{ item.id }}  />
+                            </td>
+
+								<td>
+									{{ item.id }}
+								</td>
+								<td>
+									{{ item.role_code }}
+								</td>
+								<td>
+									{{ item.role_desc }}
+								</td>
+								<td>
+									{{ item.role_desc }}
+								</td>
+								<td>
+									<a href="/app01/rolemanage/?action=view&&id={{ item.id }}" class="view-link">查看</a>
+                                    <a href="/app01/rolemanage/?action=edit&&id={{ item.id }}" class="view-link">编辑</a>
+                                    <a href="/app01/rolemanage/?action=delete&&id={{ item.id }}" onclick="javascript:return confirm('你确认要删除该记录吗?')" class="view-link">删除</a>
+								</td>
+							</tr>
+                         {% endfor %}
+
+
+						</tbody>
+					</table>
+    </div>
+{% endblock %}
+
+

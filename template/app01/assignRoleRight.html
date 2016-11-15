@@ -1,0 +1,105 @@
+{%extends "Master/_layout.html"%}
+{%block content%}
+<div class="span9">
+
+					<h1>
+						用户角色权限指派
+					</h1>
+    <a class="toggle-link" href="#tab1"><i class="icon-plus"></i> 按用户名</a>
+					<table class="table table-bordered table-striped" id="tab1" >
+						<thead>
+							<tr>
+								<th>
+									用户名
+								</th>
+								<th>
+									角色
+								</th>
+{#                                 	<th  style="text-align: center">#}
+{#									授权功能#}
+{#								</th>#}
+								<th  style="text-align: center">
+									权限
+								</th>
+
+{#								<th>#}
+{#									Messages#}
+{#								</th>#}
+{#								<th>#}
+{#									Files#}
+{#								</th>#}
+							<th>
+								操作
+							</th>
+
+							</tr>
+						</thead>
+						<tbody>
+                        {% for item in datacontent %}
+							<tr>
+								<td>
+									{{ item.user.username }}
+								</td>
+								<td>
+									{{ item.role.role_desc }}
+								</td>
+                                <td style="text-align: center">
+                               {% for p in item.r_right %}
+                                   {{ p.url }}<br/>
+                                   {% endfor %}
+                               </td>
+{#								<td style="text-align: center">#}
+{#                                    {% for p in item.r_right %}#}
+{#                                      {% if p.queryright %}#}
+{#                                           <span class="badge">查询</span><input type="checkbox" checked/>#}
+{#                                          {% else %}#}
+{#                                           <span class="badge">查询</span><input type="checkbox" />#}
+{#                                      {% endif %}#}
+{##}
+{#                                    {% endfor %}#}
+{##}
+{#                                    <span class="badge">查询</span><input type="checkbox"/>#}
+{#                                    <span class="badge">查询</span><input type="checkbox"/>#}
+{#                                    <span class="badge">查询</span><input type="checkbox"/>#}
+{#								</td>#}
+
+								<td>
+									<div>
+										 <a  class="btn btn-primary">调整</a>
+
+									</div>
+								</td>
+							</tr>
+							{% endfor %}
+
+						</tbody>
+					</table>
+					<a class="toggle-link" href="#new-project"><i class="icon-plus"></i> 按角色</a>
+					<form id="new-project" class="form-horizontal hidden">
+						<fieldset>
+							<legend>New Project</legend>
+							<div class="control-group">
+								<label class="control-label" for="input01">Project Name</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" id="input01" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="select01">Client</label>
+								<div class="controls">
+									<select id="select01"> <option>-- Select client --</option> <option>Bad Robot</option> <option>Evil Genius</option> <option>Monsters Inc</option> </select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="textarea">Project Summary</label>
+								<div class="controls">
+									<textarea class="input-xlarge" id="textarea" rows="3"></textarea>
+								</div>
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-primary">Create</button> <button class="btn">Cancel</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+{%endblock%}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en" class="ie6 ielt7 ielt8 ielt9"><![endif]--><!--[if IE 7 ]><html lang="en" class="ie7 ielt8 ielt9"><![endif]--><!--[if IE 8 ]><html lang="en" class="ie8 ielt9"><![endif]--><!--[if IE 9 ]><html lang="en" class="ie9"> <![endif]--><!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>自动化运维管理系统</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="/static/css/site.css" rel="stylesheet">
+        <link href="/static/css/inbox.css" rel="stylesheet">
+		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+          {%block css%}
+          {%endblock%}
+           {%block js%}
+           {%endblock%}
+	</head>
+	<body>
+		<div class="container">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> <a class="brand" href="#">MIS</a>
+						<div class="nav-collapse">
+							<ul class="nav">
+								<li class="active">
+									<a href="/app01/index/">仪表盘</a>
+								</li>
+								<li>
+									<a href="/app01/setting/">金融数据中心</a>
+								</li>
+								<li>
+									<a href="/app01/help/">评估报告中心</a>
+								</li>
+                                <li>
+									<a href="/app01/setting/">监控中心</a>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">权限管理中心 <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="/app01/usermanage/?action=mainview">用户管理</a>
+										</li>
+										<li>
+											<a href="/app01/rolerightmanage/">角色管理</a>
+										</li>
+
+										<li>
+											<a href="/app01/roleright/?type=assignroleright">权限管理</a>
+										</li>
+
+										<li class="divider">
+										</li>
+										<li class="nav-header">
+											自定义角色权限组
+										</li>
+										<li>
+											<a href="/app01/file/">自定义角色组</a>
+										</li>
+										<li>
+											<a href="/app01/help/">自定义组权限</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<form class="navbar-search pull-left" action="">
+								{% csrf_token %}
+								<input type="text" class="search-query span2" placeholder="搜索" />
+							</form>
+							<ul class="nav pull-right">
+								<li>
+
+									<a href="/app01/profile/">{{  user }}</a>
+
+								</li>
+								<li>
+									<a href="/app01/logout/">注销</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span3">
+					<div class="well" style="padding: 8px 0;">
+						<ul class="nav nav-list">
+							<li class="nav-header">
+								运维管理
+							</li>
+							<li class="active">
+
+								<a href="/app01/index/"><i class="icon-white icon-home"></i> 仪表盘</a>
+							</li>
+							<li>
+								<a href="/app01/projects/"><i class="icon-folder-open"></i> 系统信息统一管理</a>
+							</li>
+							<li>
+								<a href="/app01/tasks/"><i class="icon-check"></i> 项目任务跟踪管理</a>
+							</li>
+							<li>
+								<a href="/app01/message/"><i class="icon-envelope"></i> 资产信息统一管理</a>
+							</li>
+							<li>
+								<a href="/app01/files/"><i class="icon-file"></i> 供应商联系人管理</a>
+							</li>
+							<li>
+								<a href="/app01/active/"><i class="icon-list-alt"></i> 系统安全评估管理</a>
+							</li>
+							<li class="nav-header">
+								文档库
+							</li>
+							<li>
+								<a href="/app01/profile/"><i class="icon-user"></i> 知识文档管理</a>
+							</li>
+							<li>
+								<a href="/app01/setting/"><i class="icon-cog"></i> 网站内容采集管理</a>
+							</li>
+							<li class="divider">
+							</li>
+                            <li class="nav-header">
+								中间件
+							</li>
+							<li>
+								<a href="/app01/profile/"><i class="icon-user"></i> windows中间件</a>
+							</li>
+							<li>
+								<a href="/app01/setting/"><i class="icon-cog"></i> linux中间件</a>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<a href="/app01/help/"><i class="icon-info-sign"></i> 日志管理</a>
+							</li>
+							<li class="nav-header">
+								金融数据中心－交易数据
+							</li>
+							<li>
+
+								<a href="/app01/gallery/"><i class="icon-picture"></i> 历史行情数据</a>
+							</li>
+							<li>
+								<a href="/app01/blank/"><i class="icon-stop"></i>  复权历史数据</a>
+							</li>
+                            <li>
+								<a href="/app01/blank/"><i class="icon-stop"></i>  实时行情数据</a>
+							</li>
+                              <li>
+								<a href="/app01/blank/"><i class="icon-stop"></i>历史分笔数据</a>
+							</li>
+                            <li>
+								<a href="/app01/blank/"><i class="icon-stop"></i>实时报价数据</a>
+							</li>
+                             <li>
+								<a href="/app01/blank/"><i class="icon-stop"></i>  当日历史分笔</a>
+							</li>
+                             <li>
+								<a href="/app01/blank/"><i class="icon-stop"></i>   大盘指数列表</a>
+							</li>
+                             <li>
+								<a href="/app01/blank/"><i class="icon-stop"></i>   大单交易数据</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+            {%block content%}
+            {%endblock%}
+
+			</div>
+		</div>
+		<script src="/static/js/jquery.min.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		<script src="/static/js/site.js"></script>
+        <script src="/static/js/jquery.validate.min.js"></script>
+	</body>
+</html>

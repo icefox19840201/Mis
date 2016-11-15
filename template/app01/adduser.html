@@ -1,0 +1,64 @@
+{% extends "master/_layout.html" %}
+{% block content %}
+<div class="span9">
+<form id="edit-profile" class="form-horizontal" action="/app01/usermanage/" method="post">
+						<fieldset>
+							<legend>添加用户</legend>
+							<div class="control-group">
+								<label class="control-label" for="input01">登录名称</label>
+								<div class="controls">
+									<input class="input-xlarge" id="loginname" name="loginname" value="" type="text">
+								</div>
+							</div>
+                             <div class="control-group">
+								<label class="control-label" for="input01">密码</label>
+								<div class="controls">
+									<input class="input-xlarge" id="pwd" name="pwd" value="" type="password">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="input01">显示名称</label>
+								<div class="controls">
+									<input class="input-xlarge" id="username" name="username" value="" type="text">
+								</div>
+							</div>
+                            <div class="control-group">
+								<label class="control-label" for="input01">用户代码</label>
+								<div class="controls">
+									<input class="input-xlarge" id="usercode" name="usercode" value="" type="text">
+								</div>
+							</div>
+                            <div class="control-group">
+								<label class="control-label" for="input01">所属角色:</label>
+								<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" selectvalue="">
+    请选择---
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      {% for item in role %}
+           <li role="presentation"><a role="menuitem" id="{{ item.id }}" href="#" onclick="selectSelectedvalue(this)">{{ item.role_desc }}</a></li>
+      {% endfor %}
+    <input type="hidden" id="roleid" name="roleid" value="-1"/>
+  </ul>
+</div>
+							</div>
+                        <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">保存</button>
+                        <button class="btn" type="reset">取消</button>
+                        </div>
+						</fieldset>
+
+					</form>
+    </div>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+     function selectSelectedvalue(obj){
+        $("#dropdownMenu1").text(obj.text)
+         $("#roleid").val(obj.id)
+
+     }
+    </script>
+
+{% endblock %}

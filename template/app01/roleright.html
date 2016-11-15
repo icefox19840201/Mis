@@ -1,0 +1,25 @@
+{% extends 'master/_layout.html' %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+</head>
+<body>
+{% block content %}
+    	<fieldset>
+							<legend>角色权限</legend>
+  <div class="span9" >
+       <div>
+           <span>角色名称：{{ data.role_desc }}</span>
+       </div>
+  <div>
+           <span>角色代码：{{ data.role_code }}</span>
+       </div>
+ </div>
+    </fieldset>
+
+{% endblock %}
+</body>
+</html>

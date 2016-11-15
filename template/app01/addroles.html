@@ -1,0 +1,28 @@
+{% extends "master/_layout.html" %}
+{% block content %}
+<div class="span9">
+<form id="edit-profile" class="form-horizontal" action="/app01/rolemanage/" method="post">
+						<fieldset>
+							<legend>添加角色</legend>
+							<div class="control-group">
+								<label class="control-label" for="input01">角色代码</label>
+								<div class="controls">
+									<input class="input-xlarge" id="rolecode" name="rolecode" value="John Smith" type="text">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="input01">角色名称</label>
+								<div class="controls">
+									<input class="input-xlarge" id="rolename" name="rolename" value="555 555 555" type="text">
+								</div>
+							</div>
+                        <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">保存</button>
+                        <button class="btn" type="reset">取消</button>
+                        </div>
+						</fieldset>
+
+					</form>
+    </div>
+
+{% endblock %}

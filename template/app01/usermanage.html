@@ -1,0 +1,59 @@
+{% extends "Master/_layout.html" %}
+{% block content %}
+    <div class="span9" >
+    <div >
+		<a href="/app01/usermanage/?action=adduser" class="btn btn-primary">添加用户</a>
+        <a href="/app01/usermanage/?action=deletealluser" class="btn">删除用户</a>
+	</div>
+   	<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+                                <th>
+                                </th>
+								<th>
+									用户编号
+								</th>
+								<th>
+									登录名称
+								</th>
+								<th>
+									显示名称
+								</th>
+								<th>
+									所属角色
+								</th>
+								<th>
+									管理操作
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+                        {% for item in data %}
+
+                            <tr>
+                                <td style="width: 3%">
+                                 <input type="checkbox">
+                                </td>
+								<td>
+                                    {{ item.usercode }}
+								</td>
+								<td>
+									{{ item.loginName }}
+								</td>
+								<td>
+									{{ item.username }}
+								</td>
+								<td>
+									{{ item.roleName }}
+								</td>
+								<td>
+									<a href="#" class="view-link">查看</a>
+                                    <a href="#" class="view-link">编辑</a>
+                                    <a href="#" class="view-link">删除</a>
+								</td>
+                        {% endfor %}
+                          </tbody>
+					</table>
+    </div>
+
+{% endblock %}

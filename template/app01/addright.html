@@ -1,0 +1,67 @@
+{% extends "master/_layout.html" %}
+{% block content %}
+<div class="span9">
+<form id="edit-profile" class="form-horizontal" action="/app01/roleright/" method="post">
+{% csrf_token %}
+						<fieldset>
+							<legend>添加权限</legend>
+							<div class="control-group">
+								<label class="control-label" for="input01">页面权限</label>
+								<div class="controls">
+									<input class="input-xlarge;" id="url" name="url"  type="text">
+								</div>
+
+                                <label class="control-label" for="input01">角色</label>
+	<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" selectvalue="">
+    请选择---
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      {% for item in role %}
+           <li role="presentation"><a role="menuitem" id="{{ item.id }}" href="#" onclick="selectSelectedvalue(this)">{{ item.role_desc }}</a></li>
+      {% endfor %}
+    <input type="hidden" id="roleid" name="roleid" value="-1"/>
+  </ul>
+</div>
+                                 <label class="control-label" for="input01">权限控制明细</label>
+								<div class="controls" >
+                                    <label> <input type="checkbox" id="queryright" name="queryright">查询</label>
+                                     <label> <input type="checkbox" id="updateright" name="updateright">修改</label>
+                                     <label> <input type="checkbox" id="addright" name="addright">添加</label>
+                                     <label> <input type="checkbox" id="deleteright" name="deleteright">删除</label>
+								</div>
+							</div>
+
+                        <div class="form-actions">
+                        <button class="btn btn-primary" type="button" onclick="btnsubmit()">保存</button>
+                        <button class="btn" type="reset">取消</button>
+                        </div>
+						</fieldset>
+
+					</form>
+    </div>
+
+{% endblock %}
+ {%block js%}
+     <script type="text/javascript">
+     function  btnsubmit()
+     {
+        url=$("#url").val()
+         if (url==""){
+             alert("请添写相应的url")
+             return false
+         }
+         else{
+             $("#edit-profile").submit()
+
+         }
+     }
+     function selectSelectedvalue(obj){
+        $("#dropdownMenu1").text(obj.text)
+         $("#roleid").val(obj.id)
+
+     }
+
+     </script>
+ {%endblock%}
