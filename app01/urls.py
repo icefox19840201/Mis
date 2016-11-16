@@ -36,9 +36,10 @@ urlpatterns = [
     url(r'^logout/$',logout),
     url(r'^usermanage',usermanage),
     url(r'^rolerightmanage',rolerightmanage),
-    url(r'rolemanage',rolemanage),
-    url(r'right',roleright),
+    url(r'^rolemanage',rolemanage),
+    url(r'^right',roleright),
     url(r'^roleright',roleright),
+    url(r'^editrole/$',editroleRight)
 
 
 

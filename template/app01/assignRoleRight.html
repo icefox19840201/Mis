@@ -1,11 +1,19 @@
 {%extends "Master/_layout.html"%}
+
+
+{% block css %}
+<link href="/static/css/colorbox.css" rel="stylesheet">
+{% endblock %}
+
 {%block content%}
 <div class="span9">
 
 					<h1>
 						用户角色权限指派
 					</h1>
+<!--
     <a class="toggle-link" href="#tab1"><i class="icon-plus"></i> 按用户名</a>
+    -->
 					<table class="table table-bordered table-striped" id="tab1" >
 						<thead>
 							<tr>
@@ -15,19 +23,10 @@
 								<th>
 									角色
 								</th>
-{#                                 	<th  style="text-align: center">#}
-{#									授权功能#}
-{#								</th>#}
+
 								<th  style="text-align: center">
 									权限
 								</th>
-
-{#								<th>#}
-{#									Messages#}
-{#								</th>#}
-{#								<th>#}
-{#									Files#}
-{#								</th>#}
 							<th>
 								操作
 							</th>
@@ -48,24 +47,9 @@
                                    {{ p.url }}<br/>
                                    {% endfor %}
                                </td>
-{#								<td style="text-align: center">#}
-{#                                    {% for p in item.r_right %}#}
-{#                                      {% if p.queryright %}#}
-{#                                           <span class="badge">查询</span><input type="checkbox" checked/>#}
-{#                                          {% else %}#}
-{#                                           <span class="badge">查询</span><input type="checkbox" />#}
-{#                                      {% endif %}#}
-{##}
-{#                                    {% endfor %}#}
-{##}
-{#                                    <span class="badge">查询</span><input type="checkbox"/>#}
-{#                                    <span class="badge">查询</span><input type="checkbox"/>#}
-{#                                    <span class="badge">查询</span><input type="checkbox"/>#}
-{#								</td>#}
-
 								<td>
 									<div>
-										 <a  class="btn btn-primary">调整</a>
+										 <a  class="btn btn-primary" value="{{ item.role.id }}" onclick="update('{{ item.role.id}}')">调整</a>
 
 									</div>
 								</td>
@@ -74,6 +58,7 @@
 
 						</tbody>
 					</table>
+   <!--
 					<a class="toggle-link" href="#new-project"><i class="icon-plus"></i> 按角色</a>
 					<form id="new-project" class="form-horizontal hidden">
 						<fieldset>
@@ -101,5 +86,47 @@
 							</div>
 						</fieldset>
 					</form>
+					-->
 				</div>
+<div style='display:none'>
+
+			<div id='inline_content' style='padding:10px; background:#fff;'>
+
+			<p><strong>This content comes from a hidden element on this page.</strong></p>
+
+			<p>The inline option preserves bound JavaScript events and changes, and it puts the content back where it came from when it is closed.</p>
+
+			<p><a id="click" href="#" style='padding:5px; background:#ccc;'>Click me, it will be preserved!</a></p>
+
+
+
+			<p><strong>If you try to open a new Colorbox while it is already open, it will update itself with the new content.</strong></p>
+
+			<p>Updating Content Example:<br />
+
+			<a class="ajax" href="../content/ajax.html">Click here to load new content</a></p>
+
+			</div>
+
+		</div>
+
 {%endblock%}
+ <script src="/static/js/jquery.colorbox.js"></script>
+{% block js %}
+<script type="text/javascript">
+function update(rid){
+     $.ajax({
+            url:'/app01/editrole/?rid='+rid,
+            type:'GET',
+            success:function(data){
+               // var obj=jQuery.parseJSON(data)
+               alert(data)
+            },
+            error:function(){
+                console.log('error')
+            }
+        })
+}
+</script>
+{% endblock %}
+

@@ -15,6 +15,7 @@ class Right(models.Model):
     createDate=models.DateField(auto_now_add=True)
     updateDate=models.DateField(auto_now=True)
 
+
 class user(models.Model):
     id=models.UUIDField(default=uuid.uuid4,primary_key=True)
     loginName=models.CharField(max_length=20)
@@ -32,3 +33,5 @@ class userRole(models.Model):
     role_right=models.ManyToManyField("Right")
     createDate=models.DateField(auto_now_add=True)
     updateDate=models.DateField(auto_now=True)
+# class Meta:
+#     app_label=

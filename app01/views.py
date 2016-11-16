@@ -5,6 +5,7 @@ import hashlib
 from django.contrib.messages.storage import session
 from django.http import cookie
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
+from django.core import serializers
 # Create your views here.
 from django.template.context_processors import csrf
 from common.utils import check_isLogin
@@ -37,11 +38,12 @@ def login(request):
             userobj= user.objects.get(loginName=username,pwd=pwd)
             if userobj:
                request.session["user"]=userobj.username
+              # request.session["currentUserInfo"]=json.dumps(userobj)
                content["user"]= request.session["user"]
-               #result= user.objects.filter(usrRole__id='f85117cfb7db48458f983d3825b3485b')
                return  render_to_response(urlconfig.index,content)
         except Exception as e:
-               return render_to_response(urlconfig.login,content)
+            raise e
+               #return render_to_response(urlconfig.login,content)
     return render_to_response(urlconfig.login,content)
 
 @check_isLogin
@@ -228,10 +230,12 @@ def gethashCode(request,pwd):
     m=hashlib.md5()
     m.update(pwd)
     return m.hexdigest()
+
 @check_isLogin
 def getAllUserInfo(request):
      userinfo=user.objects.all()
      return userinfo
+
 
 @check_isLogin
 def getRightByRoleId(request,uid,rid):
@@ -248,6 +252,19 @@ def getRightByRoleId(request,uid,rid):
     userobj=user.objects.get(id=uid)
     Result=dict(user=userobj,role=role,r_right=r_right)
     return Result
+@check_isLogin
+def editroleRight(request):
+    '''
+    角色权限调整
+    :param request:
+    :param request:
+    :return:
+    '''
+    uinfo=user(request.session["currentUserInfo"])
+    uroleInfo=getRightByRoleId(request,uinfo.id,uinfo.usrRole_id)
+    return  HttpResponse(json.dumps(uroleInfo), content_type='application/json')
+
+
 
 
 
