@@ -5,7 +5,6 @@ import hashlib
 from django.contrib.messages.storage import session
 from django.http import cookie
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
-from django.core import serializers
 # Create your views here.
 from django.template.context_processors import csrf
 from common.utils import check_isLogin
@@ -34,11 +33,10 @@ def login(request):
         pwd=request.POST.get("password",None)
         pwd=gethashCode(request,pwd)
         try:
-
             userobj= user.objects.get(loginName=username,pwd=pwd)
             if userobj:
                request.session["user"]=userobj.username
-              # request.session["currentUserInfo"]=json.dumps(userobj)
+               #request.session["currentUserInfo"]={"username":userobj.username,"roleId":userobj.usrRole_id,"usercode":userobj.usercode}
                content["user"]= request.session["user"]
                return  render_to_response(urlconfig.index,content)
         except Exception as e:
