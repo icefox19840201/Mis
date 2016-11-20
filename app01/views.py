@@ -3,15 +3,16 @@ import json
 import uuid
 import hashlib
 from django.contrib.messages.storage import session
-from django.http import cookie
+from django.http import cookie, JsonResponse
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
 # Create your views here.
+from django.template import RequestContext
 from django.template.context_processors import csrf
-from common.utils import check_isLogin
+from common.utils import check_isLogin,GetData
 from models import user, userRole, Right
 from common import urlconfig
 from common import actionconfig
-
+from common import utils
 content={}
 @check_isLogin
 def index(request):
@@ -25,12 +26,12 @@ def project(request):
 def login(request):
 
     content.update(csrf(request))
-    if request.method=="GET":
+    if utils.GET(request):
          return render_to_response(urlconfig.login,content)
-    elif request.method=="POST":
+    elif utils.POST(request):
 
-        username=request.POST.get("username",None)
-        pwd=request.POST.get("password",None)
+        username=GetData(request,"username")
+        pwd=GetData(request,"password")
         pwd=gethashCode(request,pwd)
         try:
             userobj= user.objects.get(loginName=username,pwd=pwd)
@@ -38,6 +39,9 @@ def login(request):
                request.session["user"]=userobj.username
                #request.session["currentUserInfo"]={"username":userobj.username,"roleId":userobj.usrRole_id,"usercode":userobj.usercode}
                content["user"]= request.session["user"]
+               #locals:返回一个包含当前作用域里面的所有变量和它们的值的字典
+               print(locals())
+               #以下代码等价于return  render_to_response(urlconfig.index,locals())
                return  render_to_response(urlconfig.index,content)
         except Exception as e:
             raise e
@@ -258,9 +262,11 @@ def editroleRight(request):
     :param request:
     :return:
     '''
+    dir(request)
     uinfo=user(request.session["currentUserInfo"])
     uroleInfo=getRightByRoleId(request,uinfo.id,uinfo.usrRole_id)
-    return  HttpResponse(json.dumps(uroleInfo), content_type='application/json')
+    #return  JsonResponse
+    return  HttpResponse(json.dumps(uroleInfo), content_type='application/json',content=RequestContext(content))
 
 
 
