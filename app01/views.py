@@ -33,6 +33,7 @@ def login(request):
         username=GetData(request,"username")
         pwd=GetData(request,"password")
         pwd=gethashCode(request,pwd)
+
         try:
             userobj= user.objects.get(loginName=username,pwd=pwd)
             if userobj:
