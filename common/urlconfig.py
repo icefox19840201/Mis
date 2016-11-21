@@ -12,3 +12,7 @@ useradd="app01/adduser.html"
 page404="404.html"
 rolemanage='app01/addroles.html'
 assignroleRight="app01/assignRoleRight.html"
+
+
+#config
+content_type_Json='application/json'
