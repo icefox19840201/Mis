@@ -47,22 +47,67 @@
 									{{ item.roleName }}
 								</td>
 								<td>
-									<a href="" class="view-link" data-target="#myModal">查看</a>
+									<a href="#" onclick="show()" class="view-link"  data-toggle="modal">查看</a>
                                     <a href="/app01/usermanage/?action=edit" class="view-link">编辑</a>
                                     <a href="/app01/usermanage/?action=delete&userid={{ item.id }}" class="view-link">删除</a>
 								</td>
+
                         {% endfor %}
                           </tbody>
 					</table>
     </div>
+    <!--弹出层-->
+<div class="container">
 
-
-<!-- Modal -->
-<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog">
-<div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
-<h3 id="myModalLabel">Modal header</h3>
+<div id="example" class="modal hide fade in" style="display: none; ">
+<div class="modal-header">
+<a class="close" data-dismiss="modal">×</a>
+<h3>用户详细信息</h3>
 </div>
-<div class="modal-body"></div>
-</div>
+<div class="modal-body">
+   <div class="control-group">
+       <div style="float:left">
+            <label class="control-label" for="input01">用 户 名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
 
+		<div class="controls" >
+			<input class="input-xlarge" id="pwd" name="pwd" value="" type="password" readonly>
+        </div>
+        <div style="float:left">
+            <label class="control-label" for="input01">用户编号&nbsp;&nbsp;&nbsp;</label>
+       </div>
+
+		<div class="controls" >
+			<input class="input-xlarge" id="usercode" name="pwd" value="" type="text" readonly>
+        </div>
+        <div style="float:left">
+            <label class="control-label" for="input01">显示名称&nbsp;&nbsp;&nbsp;</label>
+       </div>
+
+		<div class="controls" >
+			<input class="input-xlarge" id="usercode" name="pwd" value="" type="text" readonly>
+        </div>
+        <div style="float:left">
+            <label class="control-label" for="input01">所属角色&nbsp;&nbsp;&nbsp;</label>
+       </div>
+
+		<div class="controls" >
+			<input class="input-xlarge" id="usercode" name="pwd" value="" type="text" readonly>
+        </div>
+	</div>
+
+    <div class="modal-footer">
+    <a href="#" class="btn btn-success">保存</a>
+    <a href="#" class="btn" data-dismiss="modal">关闭</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="/static/js/bootstrap-modal.js"></script>
+    <script type="text/javascript">
+    function  show(){
+        $("#example").modal()
+    }
+    </script>
 {% endblock %}
