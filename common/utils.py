@@ -31,11 +31,11 @@ def GetData(request,key):
     if request.method=="GET":
         return request.GET.get(key,None)
     return request.POST.get(key,None)
-def GET(request):
+def Is_GET(request):
     if request.method=="GET":
         return True
     return False
-def POST(request):
+def Is_POST(request):
     if request.method=="POST":
         return True
     return False

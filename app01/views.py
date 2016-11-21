@@ -26,9 +26,9 @@ def project(request):
 def login(request):
 
     content.update(csrf(request))
-    if utils.GET(request):
+    if utils.Is_GET(request):
          return render_to_response(urlconfig.login,content)
-    elif utils.POST(request):
+    elif utils.Is_POST(request):
 
         username=GetData(request,"username")
         pwd=GetData(request,"password")
