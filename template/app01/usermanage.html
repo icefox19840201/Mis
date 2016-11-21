@@ -47,7 +47,7 @@
 									{{ item.roleName }}
 								</td>
 								<td>
-									<a href="/app01/usermanage/?action=view" class="view-link">查看</a>
+									<a href="" class="view-link" data-target="#myModal">查看</a>
                                     <a href="/app01/usermanage/?action=edit" class="view-link">编辑</a>
                                     <a href="/app01/usermanage/?action=delete&userid={{ item.id }}" class="view-link">删除</a>
 								</td>
@@ -55,5 +55,14 @@
                           </tbody>
 					</table>
     </div>
+
+
+<!-- Modal -->
+<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog">
+<div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
+<h3 id="myModalLabel">Modal header</h3>
+</div>
+<div class="modal-body"></div>
+</div>
 
 {% endblock %}
