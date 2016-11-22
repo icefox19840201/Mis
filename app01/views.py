@@ -2,17 +2,20 @@
 import json
 import uuid
 import hashlib
+
 from django.contrib.messages.storage import session
 from django.http import cookie, JsonResponse
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
 # Create your views here.
 from django.template import RequestContext
 from django.template.context_processors import csrf
+from django.core import serializers
 from common.utils import check_isLogin,GetData
 from models import user, userRole, Right
 from common import urlconfig
 from common import actionconfig
 from common import utils
+from DataAccess.App01 import user_DAC
 content={}
 @check_isLogin
 def index(request):
@@ -83,7 +86,7 @@ def usermanage(request):
 
           return render_to_response(urlconfig.usermanage,content)
      if utils.Is_GET(request) and utils.GetData(request,"action")=="mainview":
-          uinfo=getAllUserInfo(request)
+          uinfo=user_DAC.getAllUserInfo()
           for user in uinfo:
               roleinfo=  userRole.objects.get(id=user.usrRole_id)
               user.roleName=roleinfo.role_desc
@@ -94,8 +97,12 @@ def usermanage(request):
          return  render_to_response(urlconfig.useradd,content)
      elif utils.Is_GET(request) and utils.GetData(request,"action")=="deletealluser":
          pass
-     elif  request.method=="GET" and request.GET.get("action")=="view":
-         pass
+     elif  utils.Is_GET(request) and utils.GetData(request,"action")=="view":
+         userid=utils.GetData(request,"uid")
+         u_info=user_DAC.getUserinfoById(uuid.UUID(userid))
+
+         data=dict(username=u_info.username,usercode=u_info.usercode,pwd=u_info.pwd,loginname=u_info.loginName)
+         return JsonResponse(data)
      elif  request.method=="GET" and request.GET.get("action")=="edit":
          pass
      elif  request.method=="GET" and request.GET.get("action")=="delete":
@@ -233,10 +240,7 @@ def gethashCode(request,pwd):
     m.update(pwd)
     return m.hexdigest()
 
-@check_isLogin
-def getAllUserInfo(request):
-     userinfo=user.objects.all()
-     return userinfo
+
 
 
 @check_isLogin

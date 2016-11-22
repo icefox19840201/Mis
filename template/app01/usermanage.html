@@ -47,7 +47,7 @@
 									{{ item.roleName }}
 								</td>
 								<td>
-									<a href="#" onclick="show()" class="view-link"  data-toggle="modal">查看</a>
+									<a href="#" onclick="showUserInfo('{{ item.id }}')" class="view-link"  data-toggle="modal">查看</a>
                                     <a href="/app01/usermanage/?action=edit" class="view-link">编辑</a>
                                     <a href="/app01/usermanage/?action=delete&userid={{ item.id }}" class="view-link">删除</a>
 								</td>
@@ -71,21 +71,21 @@
        </div>
 
 		<div class="controls" >
-			<input class="input-xlarge" id="pwd" name="pwd" value="" type="password" readonly>
+			<input class="input-xlarge" id="username" name="uername" value="" type="text" readonly>
         </div>
         <div style="float:left">
             <label class="control-label" for="input01">用户编号&nbsp;&nbsp;&nbsp;</label>
        </div>
 
 		<div class="controls" >
-			<input class="input-xlarge" id="usercode" name="pwd" value="" type="text" readonly>
+			<input class="input-xlarge" id="usercode" name="usercode" value="" type="text" readonly>
         </div>
         <div style="float:left">
             <label class="control-label" for="input01">显示名称&nbsp;&nbsp;&nbsp;</label>
        </div>
 
 		<div class="controls" >
-			<input class="input-xlarge" id="usercode" name="pwd" value="" type="text" readonly>
+			<input class="input-xlarge" id="displayName" name="displayName" value="" type="text" readonly>
         </div>
         <div style="float:left">
             <label class="control-label" for="input01">所属角色&nbsp;&nbsp;&nbsp;</label>
@@ -106,6 +106,23 @@
 {% block js %}
     <script type="text/javascript" src="/static/js/bootstrap-modal.js"></script>
     <script type="text/javascript">
+    function showUserInfo(uid){
+        $.ajax({
+            url:'/app01/usermanage/?uid='+uid+'&action=view',
+            type:'GET',
+            success:function(data){
+                $("#username").val(data.loginname)
+                $("#usercode").val(data.usercode)
+                $("#displayName").val(data.username)
+                 $("#example").modal()
+
+            },
+            error:function(msg){
+
+            }
+
+        })
+    }
     function  show(){
         $("#example").modal()
     }
