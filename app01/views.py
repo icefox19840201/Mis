@@ -15,7 +15,7 @@ from models import user, userRole, Right
 from common import urlconfig
 from common import actionconfig
 from common import utils
-from DataAccess.App01 import user_DAC
+from DataAccess.App01 import user_DAC,role_DAC
 content={}
 @check_isLogin
 def index(request):
@@ -93,7 +93,7 @@ def usermanage(request):
           content["data"]=uinfo
           return render_to_response(urlconfig.usermanage,content)
      elif utils.Is_GET(request) and utils.GetData(request,"action")=="adduser":
-         content["role"]=getRole(request)
+         content["role"]=role_DAC.getRole()
          return  render_to_response(urlconfig.useradd,content)
      elif utils.Is_GET(request) and utils.GetData(request,"action")=="deletealluser":
          pass
@@ -137,21 +137,21 @@ def rolerightmanage(request):
     :return:
     '''
     try:
-        if request.method=="GET" and request.GET.get("action")=="view":
+        if utils.Is_GET(request) and utils.GetData("action")=="view":
             id=request.GET.get("id")
             content["editable"]=False
             content["data"]=userRole.objects.get(id=id)
             userrole= userRole.objects.get(id=id )
             uright=userrole.role_right.all()
             return  render_to_response(urlconfig.roleright,content)
-        elif  request.method=="GET" and request.GET.get("action")=="edit":
+        elif  utils.Is_GET(request) and utils.GetData("action")=="edit":
 
             pass
-        elif  request.method=="GET" and request.GET.get("action")=="delete":
+        elif  utils.Is_GET(request) and utils.GetData("action")=="delete":
 
              pass
         else:
-             content["role"]=getRole(request)
+             content["role"]=role_DAC.getRole()
              return render_to_response(urlconfig.rolerightmanage, content)
     except Exception as err:
 
@@ -186,12 +186,12 @@ def roleright(request):
                             return render_to_response(urlconfig.rolerightmanage,content)
                 except Exception as err:
                     raise ValueError("获取url错误{0}",err.message)
-                content["role"]=getRole(request)
+                content["role"]=role_DAC.getRole()
                 return  render_to_response(urlconfig.right,content)
     else:
 
-        if request.method=="GET" and request.GET.get("type")=="assignroleright":
-           uinfo=getAllUserInfo(request)
+        if utils.Is_GET(request) and utils.GetData(request,"type")=="assignroleright":
+           uinfo=user_DAC.getAllUserInfo()
            contentdata=[]
            data={}
            for item in uinfo:
@@ -200,13 +200,6 @@ def roleright(request):
            data["datacontent"]=contentdata
            return render_to_response(urlconfig.assignroleRight,data)
     return  render_to_response(urlconfig.right,content)
-
-
-@check_isLogin
-def getRole(request):
-
-    content["role"]=userRole.objects.all().values("id","role_desc","role_code")
-    return content["role"]
 
 @check_isLogin
 def rolemanage(request):
@@ -239,9 +232,6 @@ def gethashCode(request,pwd):
     m=hashlib.md5()
     m.update(pwd)
     return m.hexdigest()
-
-
-
 
 @check_isLogin
 def getRightByRoleId(request,uid,rid):
