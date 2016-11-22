@@ -7,3 +7,5 @@ def getUserinfoById(userId):
     except:
         raise ValueError("未查找到相关值")
     return userinfo
+def getuserifno(*args,**kwargs):
+    pass

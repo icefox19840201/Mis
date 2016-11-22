@@ -38,10 +38,9 @@ def login(request):
             userobj= user.objects.get(loginName=username,pwd=pwd)
             if userobj:
                request.session["user"]=userobj.username
-               #request.session["currentUserInfo"]={"username":userobj.username,"roleId":userobj.usrRole_id,"usercode":userobj.usercode}
                content["user"]= request.session["user"]
                #locals:返回一个包含当前作用域里面的所有变量和它们的值的字典
-               print(locals())
+               # print(locals())
                #以下代码等价于return  render_to_response(urlconfig.index,locals())
                return  render_to_response(urlconfig.index,content)
         except Exception as e:
@@ -83,17 +82,17 @@ def usermanage(request):
               del content["data"]
 
           return render_to_response(urlconfig.usermanage,content)
-     if request.method=="GET" and request.GET.get("action")=="mainview":
+     if utils.Is_GET(request) and utils.GetData(request,"action")=="mainview":
           uinfo=getAllUserInfo(request)
           for user in uinfo:
               roleinfo=  userRole.objects.get(id=user.usrRole_id)
               user.roleName=roleinfo.role_desc
           content["data"]=uinfo
           return render_to_response(urlconfig.usermanage,content)
-     elif request.method=="GET" and request.GET.get("action")=="adduser":
+     elif utils.Is_GET(request) and utils.GetData(request,"action")=="adduser":
          content["role"]=getRole(request)
          return  render_to_response(urlconfig.useradd,content)
-     elif request.method=="GET" and request.GET.get("action")=="deletealluser":
+     elif utils.Is_GET(request) and utils.GetData(request,"action")=="deletealluser":
          pass
      elif  request.method=="GET" and request.GET.get("action")=="view":
          pass
@@ -102,7 +101,7 @@ def usermanage(request):
      elif  request.method=="GET" and request.GET.get("action")=="delete":
          pass
 
-     if request.method=="POST":
+     if utils.Is_POST(request):
          try:
             from models import user
             userinfo=user()
