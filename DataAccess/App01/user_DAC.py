@@ -11,6 +11,7 @@ def getuserifno(*args,**kwargs):
     pass
 def getAllUserInfo():
      userinfo=models.user.objects.all()
+
      return userinfo
 def delUserByUid(uid):
     try:
