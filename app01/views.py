@@ -145,17 +145,17 @@ def rolerightmanage(request):
     :return:
     '''
     try:
-        if utils.Is_GET(request) and utils.GetData("action")=="view":
+        if utils.Is_GET(request) and utils.GetData(request,"action")=="view":
             id=request.GET.get("id")
             content["editable"]=False
             content["data"]=userRole.objects.get(id=id)
             userrole= userRole.objects.get(id=id )
             uright=userrole.role_right.all()
             return  render_to_response(urlconfig.roleright,content)
-        elif  utils.Is_GET(request) and utils.GetData("action")=="edit":
+        elif  utils.Is_GET(request) and utils.GetData(request,"action")=="edit":
 
             pass
-        elif  utils.Is_GET(request) and utils.GetData("action")=="delete":
+        elif  utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
 
              pass
         else:
