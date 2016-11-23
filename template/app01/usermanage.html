@@ -49,7 +49,7 @@
 								<td>
 									<a href="#" onclick="showUserInfo('{{ item.id }}')" class="view-link"  data-toggle="modal">查看</a>
                                     <a href="/app01/usermanage/?action=edit" class="view-link">编辑</a>
-                                    <a href="/app01/usermanage/?action=delete&userid={{ item.id }}" class="view-link">删除</a>
+                                    <a href="" onclick="deleteuser('{{ item.id }}')" class="view-link">删除</a>
 								</td>
 
                         {% endfor %}
@@ -92,7 +92,7 @@
        </div>
 
 		<div class="controls" >
-			<input class="input-xlarge" id="usercode" name="pwd" value="" type="text" readonly>
+			<input class="input-xlarge" id="roledesc" name="roledesc" value="" type="text" readonly>
         </div>
 	</div>
 
@@ -111,10 +111,17 @@
             url:'/app01/usermanage/?uid='+uid+'&action=view',
             type:'GET',
             success:function(data){
-                $("#username").val(data.loginname)
-                $("#usercode").val(data.usercode)
-                $("#displayName").val(data.username)
-                 $("#example").modal()
+                console.log(data)
+                if (data !="") {
+                    $("#username").val(data.loginname)
+                    $("#usercode").val(data.usercode)
+                    $("#displayName").val(data.username)
+                    $("#roledesc").val(data.roleName)
+                    $("#example").modal()
+                }else
+                {
+                    alert('未获取到数据，可能已过时请刷新页面后重新查看')
+                }
 
             },
             error:function(msg){
@@ -123,8 +130,22 @@
 
         })
     }
-    function  show(){
-        $("#example").modal()
+  function deleteuser(uid){
+      isok=confirm("你确定要删除此记录吗")
+      if (isok)
+      {
+        $.ajax({
+            url:'/app01/usermanage/?uid='+uid+'&action=delete',
+            type:'GET',
+            success:function(data){
+                console.log(data)
+          },
+            error:function(msg){
+                console.log(msg)
+            }
+
+        })}
     }
+
     </script>
 {% endblock %}

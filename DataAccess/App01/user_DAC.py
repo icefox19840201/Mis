@@ -12,3 +12,9 @@ def getuserifno(*args,**kwargs):
 def getAllUserInfo():
      userinfo=models.user.objects.all()
      return userinfo
+def delUserByUid(uid):
+    try:
+        models.user.objects.get(id=uid).delete()
+        return True
+    except:
+        return False

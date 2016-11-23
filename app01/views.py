@@ -2,7 +2,6 @@
 import json
 import uuid
 import hashlib
-
 from django.contrib.messages.storage import session
 from django.http import cookie, JsonResponse
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
@@ -56,6 +55,7 @@ def logout(request):
      content=None
      del request.session["user"]
      return render_to_response(urlconfig.login)
+@check_isLogin
 def tasks(request):
     return render_to_response(urlconfig.tasks,content)
 def active(request):
@@ -96,17 +96,25 @@ def usermanage(request):
          content["role"]=role_DAC.getRole()
          return  render_to_response(urlconfig.useradd,content)
      elif utils.Is_GET(request) and utils.GetData(request,"action")=="deletealluser":
-         pass
+        pass
+
+
      elif  utils.Is_GET(request) and utils.GetData(request,"action")=="view":
          userid=utils.GetData(request,"uid")
          u_info=user_DAC.getUserinfoById(uuid.UUID(userid))
-
-         data=dict(username=u_info.username,usercode=u_info.usercode,pwd=u_info.pwd,loginname=u_info.loginName)
+         r_into=role_DAC.getRoleInfoByRoleId(u_info.usrRole_id)
+         data=dict(username=u_info.username,usercode=u_info.usercode,loginname=u_info.loginName,roleName=r_into.role_desc)
          return JsonResponse(data)
      elif  request.method=="GET" and request.GET.get("action")=="edit":
          pass
      elif  request.method=="GET" and request.GET.get("action")=="delete":
-         pass
+         userid=uuid.UUID(utils.GetData(request,"uid"))
+         result=user_DAC.delUserByUid(userid)
+         if result:
+             msg={"MSG":"删除成功"}
+         else:
+             msg={"MSG":"删除失败"}
+         return JsonResponse(result)
 
      if utils.Is_POST(request):
          try:
