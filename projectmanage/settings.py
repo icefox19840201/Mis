@@ -46,9 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sysadmin',
     'app01',
-    #'south',
+    'Supplier',
 ]
 
 

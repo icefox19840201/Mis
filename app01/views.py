@@ -26,10 +26,11 @@ def project(request):
     return render_to_response(urlconfig.project,content)
 
 def login(request):
-
+    global content
     content.update(csrf(request))
     if utils.Is_GET(request):
          return render_to_response(urlconfig.login,content)
+
     elif utils.Is_POST(request):
 
         username=GetData(request,"username")
@@ -106,7 +107,11 @@ def usermanage(request):
          data=dict(username=u_info.username,usercode=u_info.usercode,loginname=u_info.loginName,roleName=r_into.role_desc)
          return JsonResponse(data)
      elif  request.method=="GET" and request.GET.get("action")=="edit":
-         pass
+         userid=utils.GetData(request,"uid")
+         u_info=user_DAC.delUserByUid(uuid.UUID(userid))
+         r_into=role_DAC.getRoleInfoByRoleId(u_info.usrRole_id)
+         data=dict(username=u_info.username,usercode=u_info.usercode,loginname=u_info.loginName,roleName=r_into.role_desc,roleid=r_into.id)
+         return JsonResponse(data)
      elif  request.method=="GET" and request.GET.get("action")=="delete":
          userid=uuid.UUID(utils.GetData(request,"uid"))
          result=user_DAC.delUserByUid(userid)
@@ -153,6 +158,8 @@ def rolerightmanage(request):
             uright=userrole.role_right.all()
             return  render_to_response(urlconfig.roleright,content)
         elif  utils.Is_GET(request) and utils.GetData(request,"action")=="edit":
+            rid=utils.GetData(request,'rid')
+            roleinfo=role_DAC.getRoleInfoByRoleId(uuid.UUID(rid))
 
             pass
         elif  utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
@@ -212,9 +219,10 @@ def roleright(request):
 @check_isLogin
 def rolemanage(request):
 
-    if request.method=="GET":
-         if request.GET.get("type")=="addrole":
+    if utils.Is_GET(request):
+         if utils.GetData(request,"type")=="addrole":
             return render_to_response(urlconfig.rolemanage)
+
 
     else:
         try:
