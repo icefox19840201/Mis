@@ -12,6 +12,8 @@ class Supplier(models.Model):
     name=models.CharField("供应商名称",max_length=100,null=False)
     sales=models.CharField("销售人员",max_length=10,null=False)
     sales_phone=models.CharField("销售电话号码",max_length=20,null=True)
+    engineer=models.CharField("技术人员",max_length=10,null=True)
+    engineer_phone=models.CharField("技术人员电话号码",max_length=20,null=True)
     systemType=models.ForeignKey('sysType',verbose_name='系统类型')
     createDate=models.DateTimeField("创建日期",auto_now_add=True)
     updateDate=models.DateTimeField("更新日期",auto_now=True)

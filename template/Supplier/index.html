@@ -1,4 +1,19 @@
 {% extends "master/_layout.html" %}
-{% block content %}
-{{ form.as_p }}
-{% endblock %}
+
+{%block content%}
+	<div class="span9">
+					<h1>
+						供应商联系管理
+					</h1>
+					<form id="form_suplier" action="" method="post">
+						<fieldset>
+							<legend>供应商信息</legend>
+							{{ form.as_p }}
+						</fieldset>
+                        <div>
+		<a type="submit" class="btn btn-primary">提交</a>
+        <a type="reset" class="btn">重置</a>
+	</div>
+					</form>
+				</div>
+{%endblock%}

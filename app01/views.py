@@ -16,12 +16,12 @@ from common import actionconfig
 from common import utils
 from DataAccess.App01 import user_DAC,role_DAC
 content={}
-@check_isLogin
+#@check_isLogin
 def index(request):
    global content
    return render_to_response(urlconfig.index,content)
 
-@check_isLogin
+#@check_isLogin
 def project(request):
     return render_to_response(urlconfig.project,content)
 
@@ -56,7 +56,7 @@ def logout(request):
      content=None
      del request.session["user"]
      return render_to_response(urlconfig.login)
-@check_isLogin
+#@check_isLogin
 def tasks(request):
     return render_to_response(urlconfig.tasks,content)
 def active(request):
@@ -76,7 +76,7 @@ def help(request):
 def gallery(request):
     return render_to_response("app01/gallery.htm")
 
-@check_isLogin
+#@check_isLogin
 def usermanage(request):
      global content
      if "saveuser" in request.session:
@@ -142,7 +142,7 @@ def usermanage(request):
          except Exception as err:
              raise err.message
 
-@check_isLogin
+#@check_isLogin
 def rolerightmanage(request):
     '''
     列表中查看，编辑，删除的处理
@@ -172,7 +172,7 @@ def rolerightmanage(request):
 
          return render_to_response(urlconfig.rolemanage,content)
 
-@check_isLogin
+#@check_isLogin
 def roleright(request):
     '''
     角色权限对应的多表查询（难点）
@@ -216,7 +216,7 @@ def roleright(request):
            return render_to_response(urlconfig.assignroleRight,data)
     return  render_to_response(urlconfig.right,content)
 
-@check_isLogin
+#@check_isLogin
 def rolemanage(request):
 
     if utils.Is_GET(request):
@@ -249,7 +249,7 @@ def gethashCode(request,pwd):
     m.update(pwd)
     return m.hexdigest()
 
-@check_isLogin
+#@check_isLogin
 def getRightByRoleId(request,uid,rid):
     '''
     根据角色获取相对应的权限
@@ -264,7 +264,7 @@ def getRightByRoleId(request,uid,rid):
     userobj=user.objects.get(id=uid)
     Result=dict(user=userobj,role=role,r_right=r_right)
     return Result
-@check_isLogin
+#@check_isLogin
 def editroleRight(request):
     '''
     角色权限调整
