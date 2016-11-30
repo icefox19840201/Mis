@@ -17,6 +17,8 @@ class Supplier(models.Model):
     systemType=models.ForeignKey('sysType',verbose_name='系统类型')
     createDate=models.DateTimeField("创建日期",auto_now_add=True)
     updateDate=models.DateTimeField("更新日期",auto_now=True)
+    def getSupplierDropDownList(self):
+        return tuple( list(Supplier.objects.values_list('id','name')))
 
 class sysType(models.Model):
     sys_type=models.IntegerField("系统类型",null=False)

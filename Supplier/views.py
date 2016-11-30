@@ -7,5 +7,9 @@ def index(request):
     if utils.Is_GET(request):
        return render_to_response(urlconfig.index,{'form':SupplierForm()})
     elif utils.Is_POST(request):
-        pass
+        form_p=SupplierForm(request.POST)
+        if SupplierForm.is_valid:
+            form_p.save()
+
+
 
