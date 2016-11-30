@@ -8,7 +8,6 @@ class SupplierForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super(SupplierForm,self).__init__(*args,**kwargs)
         self.fields['systemType'].widget.choices = sysType.objects.all().values_list('id','sysDesc')
-        #c = sysType.objects.all().values_list('id','sysDesc')
     class Meta:
         model=Supplier
         exclude={'id',}
