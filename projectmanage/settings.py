@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app01',
     'Supplier',
+    'sysadmin',
 ]
 
 
