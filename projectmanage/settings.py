@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'app01',
     'Supplier',
     'sysadmin',
+    'Asset',
 ]
 
 
