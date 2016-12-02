@@ -11,42 +11,15 @@
 							<legend>供应商信息</legend>
 							{{ form.as_p }}
 						</fieldset>
-                        <div>
-                            <input type="submit" class="btn btn-primary" value="添加">
-                            <input type="reset" class="btn" value="取消">
-	</div>
+                        <input type="submit" class="btn btn-primary" value="添加">
+                        <input type="reset" class="btn" value="取消">
                         <input type="hidden" id="hid" name="hid" value="{{ pageId }}">
 	</form>
 </div>
-<div style="margin-top: 70px;" >
+
 <fieldset>
         <legend>供应商信息一览表</legend>
-
-<div style="float: right">
-    <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">功能项
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="#">导出供应商信息</a>
-        </li>
-        <li>
-            <a href="#">供应商信息查看</a>
-        </li>
-        <li>
-            <a href="#">供应商信息更新</a>
-        </li>
-        <li>
-            <a href="#">系统类型管理</a>
-        </li>
-    </ul>
-</div>
-</div>
-
-<div>
-
-         <table  borderColor=#4a4a84 height=40 cellSpacing=8 cellPadding=2 width=550 align=center bgColor=#ffffff border=1">
+        <table  borderColor=#4a4a84 height=40 cellSpacing=8 cellPadding=2 width=550 align=center bgColor=#ffffff border=1">
 						<thead>
 							<tr>
 								<th>
@@ -91,41 +64,9 @@
                            </ul>
            </tbody>
 					</table>
-					</div>
+</fieldset>
+   {{ paging_link }}
 
-
-
-
-
-
-
-</div>
-    </fieldset>
-    <div class="pagination">
-						<ul>
-							<li class="disabled">
-								<a href="#">«</a>
-							</li>
-							<li class="active">
-								<a href="#">1</a>
-							</li>
-							<li>
-								<a href="#">2</a>
-							</li>
-							<li>
-								<a href="#">3</a>
-							</li>
-							<li>
-								<a href="#">4</a>
-							</li>
-							<li>
-								<a href="#">»</a>
-							</li>
-
-
-
-
-</div>
 
 {%endblock%}
 

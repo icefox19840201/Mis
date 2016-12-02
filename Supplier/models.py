@@ -9,7 +9,7 @@ from django.utils import timezone
 
 
 class Supplier(models.Model):
-    name=models.CharField("供应商名称",max_length=100,null=False)
+    Supplier_name=models.ForeignKey('SupplierBusinessInfo',verbose_name="供应商名称")
     sales=models.CharField("销售人员",max_length=10,null=False)
     sales_phone=models.CharField("销售电话号码",max_length=20,null=True)
     engineer=models.CharField("技术人员",max_length=10,null=True)
@@ -17,8 +17,6 @@ class Supplier(models.Model):
     systemType=models.ForeignKey('sysType',verbose_name='系统类型')
     createDate=models.DateTimeField("创建日期",auto_now_add=True)
     updateDate=models.DateTimeField("更新日期",auto_now=True)
-    def getSupplierDropDownList(self):
-        return tuple( list(Supplier.objects.values_list('id','name')))
 
 class sysType(models.Model):
     sys_type=models.IntegerField("系统类型",null=False)
@@ -45,11 +43,12 @@ class SupplierInfo(models.Model):
       Manager=models.CharField("供应商经理",max_length=10,null=True)
       Address=models.CharField("供应商地址",max_length=200,null=True)
       Zip_code=models.CharField("邮政编码",max_length=6,null=True)
-      Supplier_BizInfo=models.ForeignKey('BusinessInfo')
+      Supplier_BizInfo=models.ForeignKey('SupplierBusinessInfo')
       createDate=models.DateTimeField("创建日期",auto_now_add=True)
       updateDate=models.DateTimeField("更新日期",auto_now=True)
 
-class BusinessInfo(models.Model):
+class SupplierBusinessInfo(models.Model):
+    name=models.CharField("供应商名称",max_length=100,null=False)
     bus_info=models.IntegerField("供应商业务类型")
     bus_info_desc=models.CharField("供应商业务描述",max_length=50)
     bus_info_isCore=models.BooleanField("是否为核心业务")
