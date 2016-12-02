@@ -28,6 +28,7 @@ def index(request):
                             <li class="disabled">
                                     <a href="#">«</a>
                                 </li>"""
+
        for item in range(0,pagecount):
            tempstr+="""
                          <li class="active">
@@ -52,11 +53,22 @@ def index(request):
                 form_p.save()
                 page_id=str(uuid.uuid4())
                 request.session["pageid"]=page_id
-                return render_to_response(urlconfig.index,{'form':SupplierForm(),'data':supplier_DAC.getAllSupplierInfo(),'pageId':page_id})
+                return render_to_response(urlconfig.index,
+                                          {'form':SupplierForm(),
+                                           'data':supplier_DAC.getAllSupplierInfo(),
+                                           'pageId':page_id}
+                                          )
         else:
                  page_id=str(uuid.uuid4())
                  request.session["pageid"]=page_id
-                 return render_to_response(urlconfig.index,{'form':SupplierForm(),'data':supplier_DAC.getAllSupplierInfo(),'pageId':page_id})
+                 return render_to_response(
+                         urlconfig.index,
+                                           {
+                                               'form':SupplierForm(),
+                                               'data':supplier_DAC.getAllSupplierInfo(),
+                                               'pageId':page_id
+                                           }
+                 )
         return render_to_response(urlconfig.index,{'form':SupplierForm(),'data':supplier_DAC.getAllSupplierInfo(),'pageId':page_id})
 
 
