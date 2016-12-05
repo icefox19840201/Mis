@@ -46,6 +46,7 @@ def login(request):
                # print(locals())
                #以下代码等价于return  render_to_response(urlconfig.index,locals())
                return  render_to_response(urlconfig.index,content)
+
         except Exception as e:
             raise e
                #return render_to_response(urlconfig.login,content)
@@ -86,6 +87,7 @@ def usermanage(request):
               del content["data"]
 
           return render_to_response(urlconfig.usermanage,content)
+
      if utils.Is_GET(request) and utils.GetData(request,"action")=="mainview":
           uinfo=user_DAC.getAllUserInfo()
           for user in uinfo:
@@ -93,9 +95,11 @@ def usermanage(request):
               user.roleName=roleinfo.role_desc
           content["data"]=uinfo
           return render_to_response(urlconfig.usermanage,content)
+
      elif utils.Is_GET(request) and utils.GetData(request,"action")=="adduser":
          content["role"]=role_DAC.getRole()
          return  render_to_response(urlconfig.useradd,content)
+
      elif utils.Is_GET(request) and utils.GetData(request,"action")=="deletealluser":
         pass
 
@@ -106,12 +110,14 @@ def usermanage(request):
          r_into=role_DAC.getRoleInfoByRoleId(u_info.usrRole_id)
          data=dict(username=u_info.username,usercode=u_info.usercode,loginname=u_info.loginName,roleName=r_into.role_desc)
          return JsonResponse(data)
+
      elif  request.method=="GET" and request.GET.get("action")=="edit":
          userid=utils.GetData(request,"uid")
          u_info=user_DAC.delUserByUid(uuid.UUID(userid))
          r_into=role_DAC.getRoleInfoByRoleId(u_info.usrRole_id)
          data=dict(username=u_info.username,usercode=u_info.usercode,loginname=u_info.loginName,roleName=r_into.role_desc,roleid=r_into.id)
          return JsonResponse(data)
+
      elif  request.method=="GET" and request.GET.get("action")=="delete":
          userid=uuid.UUID(utils.GetData(request,"uid"))
          result=user_DAC.delUserByUid(userid)
@@ -133,12 +139,14 @@ def usermanage(request):
             userinfo.usrRole=userRole.objects.get(id=id)
             m=hashlib.md5()
             userinfo.pwd=request.POST.get("pwd",None)
+
             if userinfo.pwd is not None:
                 m.update(userinfo.pwd)
                 userinfo.pwd=m.hexdigest()
             userinfo.save()
             request.session["saveuser"]=True
             return HttpResponseRedirect(actionconfig.usermanage)
+
          except Exception as err:
              raise err.message
 
@@ -157,11 +165,13 @@ def rolerightmanage(request):
             userrole= userRole.objects.get(id=id )
             uright=userrole.role_right.all()
             return  render_to_response(urlconfig.roleright,content)
+
         elif  utils.Is_GET(request) and utils.GetData(request,"action")=="edit":
             rid=utils.GetData(request,'rid')
             roleinfo=role_DAC.getRoleInfoByRoleId(uuid.UUID(rid))
 
             pass
+
         elif  utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
 
              pass
@@ -190,19 +200,23 @@ def roleright(request):
                         role_right.updateRight=1 if request.POST.get("updateright",None)==u"on" else 0
                         role_right.editRight=1 if request.POST.get("addright",None)==u"on" else 0
                         role_right.deleteRight=1 if request.POST.get("deleteright",None)==u"on" else 0
+
                         if roleid !="-1" and roleid is  not None:
                             #多对多表的处理添加数据
                             role=userRole.objects.get(id=roleid)
                             role_right.save()
                             role.role_right.add(role_right)
                             return render_to_response(urlconfig.rolerightmanage,content)
+
                         else:
                             role_right.save()
                             return render_to_response(urlconfig.rolerightmanage,content)
+
                 except Exception as err:
                     raise ValueError("获取url错误{0}",err.message)
                 content["role"]=role_DAC.getRole()
                 return  render_to_response(urlconfig.right,content)
+
     else:
 
         if utils.Is_GET(request) and utils.GetData(request,"type")=="assignroleright":
@@ -214,6 +228,7 @@ def roleright(request):
                contentdata.append(urinfo)
            data["datacontent"]=contentdata
            return render_to_response(urlconfig.assignroleRight,data)
+
     return  render_to_response(urlconfig.right,content)
 
 #@check_isLogin
@@ -222,7 +237,6 @@ def rolemanage(request):
     if utils.Is_GET(request):
          if utils.GetData(request,"type")=="addrole":
             return render_to_response(urlconfig.rolemanage)
-
 
     else:
         try:
@@ -264,6 +278,7 @@ def getRightByRoleId(request,uid,rid):
     userobj=user.objects.get(id=uid)
     Result=dict(user=userobj,role=role,r_right=r_right)
     return Result
+
 #@check_isLogin
 def editroleRight(request):
     '''
@@ -277,6 +292,8 @@ def editroleRight(request):
     uroleInfo=getRightByRoleId(request,uinfo.id,uinfo.usrRole_id)
     #return  JsonResponse
     return  HttpResponse(json.dumps(uroleInfo), content_type='application/json',content=RequestContext(content))
+
+
 
 
 
