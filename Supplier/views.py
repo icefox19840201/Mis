@@ -3,7 +3,6 @@ import StringIO
 import uuid
 from django.http import HttpResponse
 from django.shortcuts import render,render_to_response
-from django.utils.safestring import mark_safe
 from DataAccess.Supplier import supplier_DAC
 from common import utils
 from common.Supplier import urlconfig
@@ -34,14 +33,14 @@ def index(request):
         if utils.GetData(request,'hid')==request.session["pageid"]:
             form_p=SupplierForm(request.POST)
             if SupplierForm.is_valid:
-                form_p.save()
+                stringLink,start,end=supplier_utils.pagging(request)
                 page_id=str(uuid.uuid4())
                 request.session["pageid"]=page_id
-                stringLink,start,end=supplier_utils.pagging(request)
+                form_p.save()
                 return render_to_response(urlconfig.index,
                                           {
                                            'form':SupplierForm(),
-                                           'data':supplier_DAC.getAllSupplierInfo(),
+                                           'data':supplier_DAC.getAllSupplierInfo()[start:end],
                                            'pageId':page_id,
                                             'paging_link':stringLink
                                           }
@@ -55,7 +54,7 @@ def index(request):
                          urlconfig.index,
                                            {
                                                'form':SupplierForm(),
-                                               'data':supplier_DAC.getAllSupplierInfo(),
+                                               'data':supplier_DAC.getAllSupplierInfo()[start:end],
                                                'pageId':page_id,
                                                'paging_link':stringLink
                                            }
