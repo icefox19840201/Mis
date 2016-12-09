@@ -15,7 +15,11 @@ def getAllUserInfo():
      return userinfo
 def delUserByUid(uid):
     try:
-        models.user.objects.get(id=uid).delete()
-        return True
+        user=models.user.objects.get(id=uid)
+        if not user.loginName=='admin':
+            raise ValueError("不能删除系统管理员")
+        else:
+            user.delete()
+            return True
     except:
         return False

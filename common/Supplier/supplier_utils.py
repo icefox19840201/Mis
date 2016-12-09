@@ -4,12 +4,12 @@ from DataAccess.Supplier import supplier_DAC
 from common import utils
 
 
-def pagging(request):
+def pagging(request,data=None):
 
        currentPage=int(utils.GetData(request,"page")) if utils.GetData(request,"page") else 1
-       pageSize=3
+       pageSize=5
        start=(currentPage-1)*pageSize if currentPage>=1 else 0
-       totalCount=supplier_DAC.getAllSupplierInfo().__len__()
+       totalCount=supplier_DAC.getAllSupplierInfo().__len__() if not data else data.__len__()
        pagecount=divmod(totalCount,pageSize)[0] if divmod(totalCount,pageSize)[1]==0 else divmod(totalCount,pageSize)[0]+1
        end=currentPage*pageSize if currentPage<=pagecount else pagecount
 

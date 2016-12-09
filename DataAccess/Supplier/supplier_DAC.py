@@ -13,14 +13,23 @@ def getAllSupplierInfo():
 
 
 def getSupplierInfoById(id):
+    try:
+       return Supplier.objects.get(id=id)
+    except Exception as e:
+        raise ValueError(e)
 
-    pass
 
 def deleteSupplierById(id):
     try:
         obj=Supplier.objects.get(Supplier_name__id=id)
         if not obj:
               obj.delete()
-    except:
-        return ValueError("")
+        else:
+            raise ValueError('')
+    except Exception as e:
+        return ValueError(e)
+
+def SearchSupplierInfo(keywords):
+    return Supplier.objects.filter(Supplier_name__name__contains=keywords)
+
 

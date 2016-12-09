@@ -30,8 +30,8 @@ def GetData(request,key):
     :return:
     '''
     if request.method=="GET":
-        return request.GET.get(key,None)
-    return request.POST.get(key,None)
+       return request.GET.get(key,None)
+    return  request.POST.get(key,None)
 
 def Is_GET(request):
     if request.method=="GET":

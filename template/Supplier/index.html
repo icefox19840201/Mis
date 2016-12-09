@@ -19,6 +19,7 @@
 
 <fieldset>
         <legend>供应商信息一览表</legend>
+
         <table  borderColor=#4a4a84 height=40 cellSpacing=8 cellPadding=2 width=550 align=center bgColor=#ffffff border=1">
 						<thead>
 							<tr>
@@ -31,15 +32,7 @@
                                 <th>
 									销售电话
 								</th>
-								<th>
-									技术人员
-								</th>
-                                <th>
-									技术电话
-								</th>
-                                 <th>
-									系统类型
-								</th>
+
                                  <th>
 									操作
 								</th>
@@ -52,20 +45,20 @@
                                 <td> {{ item.name }} </td>
                                  <td> {{ item.sales }} </td>
                             <td> {{ item.sales_phone }} </td>
-                            <td>{{ item.engineer }}</td>
-                            <td>{{ item.engineer_phone }}</td>
-                             <td>{{ item.SysDesc }}</td>
-                            <td>
-                                <a href="javascript:void(0)" onclick="del({{ item.id }})" >删除</a>
-                                 <a>公司信息</a>
-                            </td>
+                         <td></td>
+
+
+
                                 </tr>
                             {% endfor %}
-                           </ul>
+
            </tbody>
 					</table>
 </fieldset>
-   {{ paging_link }}
+    <div style="text-align: right">
+     {{ paging_link }}
+    </div>
+
 
 
 {%endblock%}
@@ -73,7 +66,17 @@
 {% block js%}
     <script type="text/javascript">
         function del(id){
-            alert(id)
+             $.ajax({
+            url:'supplier/sm/?id='+id+'&action=delete',
+            type:'GET',
+            success:function(data){
+                console.log(data)
+          },
+            error:function(msg){
+                console.log(msg)
+            }
+
+        })
         }
     </script>
 {% endblock %}

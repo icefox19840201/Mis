@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^sysadmin/',include("sysadmin.urls")),
     url(r'^app01/',include("app01.urls",namespace="app01")),
-    url(r'^supplier/',include("Supplier.urls",namespace="Supplier")),
+    url(r'^supplier/',include("Supplier.urls")),
     url(r'',views.index)
 
 ]

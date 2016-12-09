@@ -1,15 +1,18 @@
 #encoding:utf-8
 import StringIO
 import uuid
+
+from django.contrib.messages.storage import session
 from django.http import HttpResponse
-from django.shortcuts import render,render_to_response
+from django.shortcuts import render,render_to_response,HttpResponseRedirect
 from DataAccess.Supplier import supplier_DAC
 from common import utils
-from common.Supplier import urlconfig
+from common.Supplier import urlconfig,actionConfig
 from Supplier.supperForm import SupplierForm
 from common.Supplier import supplier_utils
 # Create your views here.
 import xlwt
+from django.core import serializers
 
 def index(request):
 
@@ -63,13 +66,13 @@ def index(request):
         return render_to_response(urlconfig.index,{'form':SupplierForm(),'data':supplier_DAC.getAllSupplierInfo(),'pageId':page_id})
 
 
-def supplierManager(request):
+def search(request):
+    keywords=str(utils.GetData(request,"keyword")).strip()
+    if keywords:
+        result=supplier_DAC.SearchSupplierInfo(keywords)
 
-    if utils.Is_GET(request) and utils.GetData(request,"action")=="viewDatails":
-        pass
 
-    if utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
-        pass
+
 
 
 
