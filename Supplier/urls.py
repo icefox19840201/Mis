@@ -22,7 +22,9 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^index/$',index),
     url(r'^search/$',search),
+    url(r'^supm',supplierManage),
     url(r'',index),
+
 
 
 ]

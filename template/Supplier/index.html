@@ -45,7 +45,11 @@
                                 <td> {{ item.name }} </td>
                                  <td> {{ item.sales }} </td>
                             <td> {{ item.sales_phone }} </td>
-                         <td></td>
+                         <td>
+                             <a href="#" onclick="viewDatails({{ item.id }})" class="view-link"  data-toggle="modal">详细</a>
+
+                             <a href="/supplier/supplierManage/?id={{ item.id }}">删除</a>
+                         </td>
 
 
 
@@ -58,25 +62,104 @@
     <div style="text-align: right">
      {{ paging_link }}
     </div>
+<!--弹出层-->
+<div id="example" class="modal hide fade in" style="display: none; ">
+<div class="modal-header">
+<a class="close" data-dismiss="modal">×</a>
+<h3>供应商详细信息查看</h3>
+</div>
+<div class="modal-body">
+   <div class="control-group">
+       <div style="float:left">
+            <label class="control-label" for="input01">供应商名称&nbsp;&nbsp;</label>
+       </div>
 
-
+		<div class="controls" >
+			<input class="input-xlarge" id="suppliername" name="suppliername" value="" type="text" readonly>
+        </div>
+        <div style="float:left">
+            <label class="control-label" for="input01">销售人员&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="sales" name="sales" value="" type="text" readonly>
+        </div>
+         <div style="float:left">
+            <label class="control-label" for="input01">销售电话&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="salesPhone" name="salesPhone" value="" type="text" readonly>
+        </div>
+             <div style="float:left">
+            <label class="control-label" for="input01">技术人员&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="Tuser" name="Tuser" value="" type="text" readonly>
+        </div>
+       <div style="float:left">
+            <label class="control-label" for="input01">技术电话&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="Tphone" name="Tphone" value="" type="text" readonly>
+        </div>
+       <div style="float:left">
+            <label class="control-label" for="input01">业务类型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="businessType" name="businessType" value="" type="text" readonly>
+        </div>
+        <div style="float:left">
+            <label class="control-label" for="input01">业务经理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="manager" name="manager" value="" type="text" readonly>
+        </div>
+        <div style="float:left">
+            <label class="control-label" for="input01">公司电话&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="companyPhone" name="companyPhone" value="" type="text" readonly>
+        </div>
+         <div style="float:left">
+            <label class="control-label" for="input01">公司电话&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="" name="" value="" type="text" readonly>
+        </div>
+    </div>
+    </div>
+    </div>
 
 {%endblock%}
 
 {% block js%}
     <script type="text/javascript">
         function del(id){
-             $.ajax({
-            url:'supplier/sm/?id='+id+'&action=delete',
-            type:'GET',
-            success:function(data){
-                console.log(data)
-          },
-            error:function(msg){
-                console.log(msg)
-            }
 
-        })
         }
+        function  viewDatails(id){
+          $("#example").modal()
+        }
+{#               $.ajax({#}
+{#            url:'/app01/usermanage/?uid='+uid+'&action=view',#}
+{#            type:'GET',#}
+{#            success:function(data){#}
+{#                console.log(data)#}
+{#                if (data !="") {#}
+{#                    $("#username").val(data.loginname)#}
+{#                    $("#usercode").val(data.usercode)#}
+{#                    $("#displayName").val(data.username)#}
+{#                    $("#roledesc").val(data.roleName)#}
+{#                    $("#example").modal()#}
+{#                }else#}
+{#                {#}
+{#                    alert('未获取到数据，可能已过时请刷新页面后重新查看')#}
+{#                }#}
+{##}
+{#            },#}
+{#            error:function(msg){#}
+{##}
+{#            }#}
+{#        }#}
+
     </script>
 {% endblock %}

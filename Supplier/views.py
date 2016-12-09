@@ -3,7 +3,8 @@ import StringIO
 import uuid
 
 from django.contrib.messages.storage import session
-from django.http import HttpResponse
+from django.core.serializers import json
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render,render_to_response,HttpResponseRedirect
 from DataAccess.Supplier import supplier_DAC
 from common import utils
@@ -70,6 +71,14 @@ def search(request):
     keywords=str(utils.GetData(request,"keyword")).strip()
     if keywords:
         result=supplier_DAC.SearchSupplierInfo(keywords)
+
+def supplierManage(request):
+    id =utils.GetData(request,"id")
+    if utils.Is_GET(request) and utils.GetData(request,"action")=="viewDatails":
+        supplierobj= json.dumps(supplier_DAC.getSupplierInfoById(id))
+        return JsonResponse(supplierobj)
+    elif utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
+        pass
 
 
 

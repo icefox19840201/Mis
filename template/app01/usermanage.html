@@ -118,7 +118,7 @@
             url:'/app01/usermanage/?uid='+uid+'&action=view',
             type:'GET',
             success:function(data){
-                console.log(data)
+
                 if (data !="") {
                     $("#username").val(data.loginname)
                     $("#usercode").val(data.usercode)

@@ -13,7 +13,13 @@ def getAllUserInfo():
      userinfo=models.user.objects.all()
 
      return userinfo
+
 def delUserByUid(uid):
+    '''
+    删除用户
+    :param uid:
+    :return:
+    '''
     try:
         user=models.user.objects.get(id=uid)
         if not user.loginName=='admin':
