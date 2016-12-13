@@ -19,7 +19,22 @@
 
 <fieldset>
         <legend>供应商信息一览表</legend>
-
+<div class="btn-group" style="float: right;">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">功能项
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="/supplier/ex/">导出供应商列表</a>
+        </li>
+        <li>
+            <a href="#">维护记录</a>
+        </li>
+        <li>
+            <a href="#">维保查询</a>
+        </li>
+    </ul>
+</div>
         <table  borderColor=#4a4a84 height=40 cellSpacing=8 cellPadding=2 width=550 align=center bgColor=#ffffff border=1">
 						<thead>
 							<tr>
@@ -120,11 +135,24 @@
 			<input class="input-xlarge" id="companyPhone" name="companyPhone" value="" type="text" readonly>
         </div>
          <div style="float:left">
-            <label class="control-label" for="input01">公司电话&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label class="control-label" for="input01">公司地址&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
        </div>
        <div class="controls" >
 			<input class="input-xlarge" id="" name="" value="" type="text" readonly>
         </div>
+        <div style="float:left">
+            <label class="control-label" for="input01">公司邮编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="" name="" value="" type="text" readonly>
+        </div>
+         <div style="float:left">
+            <label class="control-label" for="input01">合同日期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+       </div>
+       <div class="controls" >
+			<input class="input-xlarge" id="" name="" value="" type="text" readonly>
+        </div>
+
     </div>
     </div>
     </div>

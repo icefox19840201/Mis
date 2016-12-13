@@ -12,8 +12,9 @@ from common.Supplier import urlconfig,actionConfig
 from Supplier.supperForm import SupplierForm
 from common.Supplier import supplier_utils
 # Create your views here.
-import xlwt
+from xlwt import *
 from django.core import serializers
+import os
 
 def index(request):
 
@@ -79,6 +80,50 @@ def supplierManage(request):
         return JsonResponse(supplierobj)
     elif utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
         pass
+
+def Export(request):
+    '''
+    导出供应商Excel信息
+    :param request:
+    :return:
+    '''
+    result=supplier_DAC.expSupplierInfo()
+    ws = Workbook(encoding='utf-8')
+    w = ws.add_sheet(u"数据报表第一页")
+    w.write(0, 0, "销售")
+    w.write(0, 1, u"销售电话")
+    w.write(0, 2, u"工程师")
+    w.write(0, 3, u"工程师电话")
+    w.write(0, 4, u"公司")
+    excel_row = 1
+    for obj in result:
+            supplier_sales = obj[0]
+            sales_phone = obj[1]
+            #data_time = obj.time.strftime("%Y-%m-%d")[:10]
+            supplier_engineer = obj[2]
+            engineer_phone = obj[3]
+            supplier_company=obj[4]
+            w.write(excel_row, 0, supplier_sales)
+            w.write(excel_row, 1, sales_phone)
+            w.write(excel_row, 2, supplier_engineer)
+            w.write(excel_row, 3, engineer_phone)
+            w.write(excel_row, 4, supplier_company)
+            excel_row += 1
+    if os.path.exists(u"supplier.xls"):
+        os.remove("supplier.xls")
+    ws.save("supplier.xls")
+    sio = StringIO.StringIO()
+    ws.save(sio)
+    sio.seek(0)
+    response = HttpResponse(sio.getvalue(), content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=supplier.xls'
+    response.write(sio.getvalue())
+    return response
+
+def supportRecord(request):
+
+    pass
+
 
 
 

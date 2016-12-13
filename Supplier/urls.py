@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^index/$',index),
     url(r'^search/$',search),
     url(r'^supm',supplierManage),
+    url(r'^ex',Export),
     url(r'',index),
 
 
