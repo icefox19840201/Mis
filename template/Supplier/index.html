@@ -33,6 +33,21 @@
         <li>
             <a href="#">维保查询</a>
         </li>
+           <li>
+            <a href="#">杋房出入登记</a>
+        </li>
+         <li>
+            <a href="#">快速检索</a>
+        </li>
+         <li>
+            <a href="#">维保合同管理</a>
+        </li>
+          <li>
+            <a href="#">添加供应商</a>
+        </li>
+          <li>
+            <a href="#">添加系统类型</a>
+        </li>
     </ul>
 </div>
         <table  borderColor=#4a4a84 height=40 cellSpacing=8 cellPadding=2 width=550 align=center bgColor=#ffffff border=1">
@@ -61,8 +76,8 @@
                                  <td> {{ item.sales }} </td>
                             <td> {{ item.sales_phone }} </td>
                          <td>
-                             <a href="#" onclick="viewDatails({{ item.id }})" class="view-link"  data-toggle="modal">详细</a>
-
+                             <a href="#" onclick="viewDatails({{ item.id }})" class="view-link"  data-toggle="modal">详细 |</a>
+                              <a href="#" onclick="viewDatails({{ item.id }})" class="view-link"  data-toggle="modal">变更 |</a>
                              <a href="/supplier/supplierManage/?id={{ item.id }}">删除</a>
                          </td>
 
