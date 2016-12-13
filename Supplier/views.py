@@ -79,6 +79,7 @@ def supplierManage(request):
         supplierobj= json.dumps(supplier_DAC.getSupplierInfoById(id))
         return JsonResponse(supplierobj)
     elif utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
+
         pass
 
 def Export(request):
