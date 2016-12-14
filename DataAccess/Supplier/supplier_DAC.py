@@ -46,7 +46,43 @@ def expSupplierInfo():
         supplier.Supplier_name_id=business.id
        """
     return execquerySql(sql)
+def getDetails(id):
+    if not id:
+        raise ValueError(u"传入参数不能为空")
+    if not isinstance(id,int):
+        raise TypeError(u"传入参数类型非法")
+    sql="""
+                 SELECT * FROM(
+                SELECT  supplier.id,
+                                supplier.sales,
+                                supplier.sales_phone,
+                                supplier.engineer,
+                                supplier.engineer_phone,
+                                bussiness.`name`,
+                                sysType.sysDesc,
+                        supInfo.Address,
+                        supInfo.Manager,
+                                supInfo.Supplier_phone,
+                                supInfo.Zip_code
+                                FROM supplier_supplier supplier
+                LEFT JOIN
+                    supplier_supplierbusinessinfo bussiness
+                on
+                    Supplier_name_id=bussiness.id
+                LEFT JOIN
+                    supplier_systype sysType
+                on
+                    supplier.systemType_id=sysType.id
+                LEFT JOIN
+                    supplier_supplierinfo supInfo
+                ON
+                    bussiness.id=supInfo.Supplier_BizInfo_id
+                ) as details
+                where id={0}
 
+
+       """.format(id)
+    return  getSingleResultByQuerySql(sql)
 def execquerySql(sql):
     cursor=connection.cursor()
     cursor.execute(sql)

@@ -76,7 +76,8 @@ def search(request):
 def supplierManage(request):
     id =utils.GetData(request,"id")
     if utils.Is_GET(request) and utils.GetData(request,"action")=="viewDatails":
-        supplierobj= json.dumps(supplier_DAC.getSupplierInfoById(id))
+        supplierDetails=supplier_DAC.getDetails(int(id))
+        supplierobj= json.DjangoJSONEncoder(supplierDetails)
         return JsonResponse(supplierobj)
     elif utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
 

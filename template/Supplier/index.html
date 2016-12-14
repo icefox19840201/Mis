@@ -17,8 +17,9 @@
 	</form>
 </div>
 
-<fieldset>
-        <legend>供应商信息一览表</legend>
+<fieldset style="margin-top: 68px;text-align: center;">
+
+        <legend style="color: red"><b>供应商信息一览表</b></legend>
 <div class="btn-group" style="float: right;">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">功能项
         <span class="caret"></span>
@@ -180,7 +181,14 @@
 
         }
         function  viewDatails(id){
-          $("#example").modal()
+            $.ajax({
+                url:"/supplier/supm/?action=viewDatails&id="+id,
+                type:"GET",
+                success:function(data){
+                    console.log(data)
+                }
+            })
+            //$("#example").modal()
         }
 {#               $.ajax({#}
 {#            url:'/app01/usermanage/?uid='+uid+'&action=view',#}
