@@ -17,7 +17,10 @@ from django.core import serializers
 import os
 
 def index(request):
-
+    """
+    供应商首页及分页以及防止重复数据提交
+    :return:
+    """
     page_id=''
     stringLink=''
     if utils.Is_GET(request):
@@ -74,6 +77,11 @@ def search(request):
         result=supplier_DAC.SearchSupplierInfo(keywords)
 
 def supplierManage(request):
+    '''
+    供应商列表管理
+    :param request:
+    :return:
+    '''
     id =utils.GetData(request,"id")
     if utils.Is_GET(request) and utils.GetData(request,"action")=="viewDatails":
         supplierDetails=supplier_DAC.getDetails(int(id))
