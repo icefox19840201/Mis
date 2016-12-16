@@ -98,8 +98,13 @@ def supplierManage(request):
         )
         return JsonResponse(jsonResult)
     elif utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
+        try:
+             supplier_DAC.deleteSupplierById(int(id))
+             return JsonResponse({"Msg":"删除成功"})
+        except Exception as err:
+            msg={"Msg":"删除失败","reson":err.message}
+            return JsonResponse(msg)
 
-        pass
 
 def Export(request):
     '''

@@ -79,7 +79,7 @@
                          <td>
                              <a href="#" onclick="viewDatails({{ item.id }})" class="view-link"  data-toggle="modal">详细 |</a>
                               <a href="#" onclick="viewDatails({{ item.id }})" class="view-link"  data-toggle="modal">变更 |</a>
-                             <a href="/supplier/supplierManage/?id={{ item.id }}">删除</a>
+                             <a href="#" onclick="del({{ item.id }})">删除</a>
                          </td>
 
 
@@ -118,7 +118,7 @@
             <label class="control-label" for="input01">销售电话&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
        </div>
        <div class="controls" >
-			<input class="input-xlarge" id="salesPhone" name="salesPhone" value="" type="text" readonly>
+			<input class="input-xlarge" id="sales_Phone" name="sales_Phone" value="" type="text" readonly>
         </div>
              <div style="float:left">
             <label class="control-label" for="input01">技术人员&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -154,13 +154,13 @@
             <label class="control-label" for="input01">公司地址&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
        </div>
        <div class="controls" >
-			<input class="input-xlarge" id="" name="" value="" type="text" readonly>
+			<input class="input-xlarge" id="address" name="address" value="" type="text" readonly>
         </div>
         <div style="float:left">
             <label class="control-label" for="input01">公司邮编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
        </div>
        <div class="controls" >
-			<input class="input-xlarge" id="" name="" value="" type="text" readonly>
+			<input class="input-xlarge" id="" name="zipCode" value="zipCode" type="text" readonly>
         </div>
          <div style="float:left">
             <label class="control-label" for="input01">合同日期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -177,40 +177,45 @@
 
 {% block js%}
     <script type="text/javascript">
-        function del(id){
+        function del(id) {
+            $.ajax({
+                        url: "/supplier/supm/?action=delete&id=" + id,
+                        type: "GET",
+                        success: function (data) {
+                            console.log(data)
+                            alert(data.Msg)
+                        },
+                         error: function (data) {
+                             console.log(data)
+                                     alert(data.Msg+"\n" +"原因："+data.reson)
+                      }
 
+                    }
+            )
         }
         function  viewDatails(id){
             $.ajax({
                 url:"/supplier/supm/?action=viewDatails&id="+id,
                 type:"GET",
                 success:function(data){
-                    console.log(data)
+                    $("#suppliername").val(data.SupplierName)
+                    $("#sales").val(data.Sales)
+                    $("#sales_Phone").val(data.SalesPhone)
+                    $("#Tuser").val(data.Enginner)
+                    $("#Tphone").val(data.EnginnerPhone)
+                     $("#businessType").val(data.SysType)
+                     $("#manager").val(data.SupplierManager)
+                     $("#companyPhone").val(data.Supplier_phone)
+                    $("#address").val(data.Address)
+                     $("#zipCode").val(data.ZipCode)
+
+
                 }
             })
-            //$("#example").modal()
+            $("#example").modal()
         }
-{#               $.ajax({#}
-{#            url:'/app01/usermanage/?uid='+uid+'&action=view',#}
-{#            type:'GET',#}
-{#            success:function(data){#}
-{#                console.log(data)#}
-{#                if (data !="") {#}
-{#                    $("#username").val(data.loginname)#}
-{#                    $("#usercode").val(data.usercode)#}
-{#                    $("#displayName").val(data.username)#}
-{#                    $("#roledesc").val(data.roleName)#}
-{#                    $("#example").modal()#}
-{#                }else#}
-{#                {#}
-{#                    alert('未获取到数据，可能已过时请刷新页面后重新查看')#}
-{#                }#}
-{##}
-{#            },#}
-{#            error:function(msg){#}
-{##}
-{#            }#}
-{#        }#}
+
+
 
     </script>
 {% endblock %}

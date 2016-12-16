@@ -28,9 +28,9 @@ def deleteSupplierById(id):
         if not obj:
               obj.delete()
         else:
-            raise ValueError('')
+           raise ValueError("删除失败")
     except Exception as e:
-        return ValueError(e)
+        raise ValueError(e)
 
 def SearchSupplierInfo(keywords):
     return Supplier.objects.filter(Supplier_name__name__contains=keywords)
