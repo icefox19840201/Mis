@@ -24,8 +24,8 @@ def getSupplierInfoById(id):
 
 def deleteSupplierById(id):
     try:
-        obj=Supplier.objects.get(Supplier_name__id=id)
-        if not obj:
+        obj=Supplier.objects.get(id=id)
+        if obj:
               obj.delete()
         else:
            raise ValueError("删除失败")
