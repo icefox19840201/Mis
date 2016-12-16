@@ -2,6 +2,9 @@
 from Supplier.models import Supplier, SupplierBusinessInfo
 from django.db import connection
 
+from ViewModel.Supplier.supplierViewModel import supplierViewMode
+
+
 def getAllSupplierInfo():
     alldata= list(Supplier.objects.all().order_by("-id"))
     for item in alldata:
@@ -46,6 +49,7 @@ def expSupplierInfo():
         supplier.Supplier_name_id=business.id
        """
     return execquerySql(sql)
+
 def getDetails(id):
     if not id:
         raise ValueError(u"传入参数不能为空")
@@ -83,6 +87,7 @@ def getDetails(id):
 
        """.format(id)
     return  getSingleResultByQuerySql(sql)
+
 def execquerySql(sql):
     cursor=connection.cursor()
     cursor.execute(sql)
@@ -94,5 +99,22 @@ def getSingleResultByQuerySql(sql):
     cursor.execute(sql)
     result=cursor.fetchone()
     return result
+
+def getDetailsObjectById(id):
+      supplierDetails=getDetails(int(id))
+      viewmodel=supplierViewMode()
+      viewmodel.Id=supplierDetails[0]
+      viewmodel.Sales=supplierDetails[1]
+      viewmodel.SalesPhone=supplierDetails[2]
+      viewmodel.Enginner=supplierDetails[3]
+      viewmodel.EnginnerPhone=supplierDetails[4]
+      viewmodel.SupplierName=supplierDetails[5]
+      viewmodel.SysType=supplierDetails[6]
+      viewmodel.Address=supplierDetails[7]
+      viewmodel.SupplierManager=supplierDetails[8]
+      viewmodel.Supplier_phone=supplierDetails[9]
+      viewmodel.ZipCode=supplierDetails[10]
+      return viewmodel
+
 
 

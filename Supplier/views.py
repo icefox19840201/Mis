@@ -1,12 +1,12 @@
 #encoding:utf-8
 import StringIO
 import uuid
-
+import json
 from django.contrib.messages.storage import session
-from django.core.serializers import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render,render_to_response,HttpResponseRedirect
 from DataAccess.Supplier import supplier_DAC
+from ViewModel.Supplier.supplierViewModel import supplierViewMode
 from common import utils
 from common.Supplier import urlconfig,actionConfig
 from Supplier.supperForm import SupplierForm
@@ -84,9 +84,19 @@ def supplierManage(request):
     '''
     id =utils.GetData(request,"id")
     if utils.Is_GET(request) and utils.GetData(request,"action")=="viewDatails":
-        supplierDetails=supplier_DAC.getDetails(int(id))
-        supplierobj= json.DjangoJSONEncoder(supplierDetails)
-        return JsonResponse(supplierobj)
+        viewmodel=supplier_DAC.getDetailsObjectById(int(id))
+        jsonResult=dict(
+            Id=viewmodel.Id,
+            Sales=viewmodel.Sales,
+            SalesPhone=viewmodel.salesPhone,
+            Enginner=viewmodel.Enginner,
+            EnginnerPhone=viewmodel.EnginnerPhone,
+            SupplierName=viewmodel.SupplierName,
+            SysType=viewmodel.SysType,
+            Address=viewmodel.Address,
+
+        )
+        return JsonResponse(jsonResult)
     elif utils.Is_GET(request) and utils.GetData(request,"action")=="delete":
 
         pass
