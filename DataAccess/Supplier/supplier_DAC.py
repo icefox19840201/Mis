@@ -30,7 +30,7 @@ def deleteSupplierById(id):
         else:
            raise ValueError("删除失败")
     except Exception as e:
-        raise ValueError(e)
+        raise ValueError("删除失败,原因%s"%e)
 
 def SearchSupplierInfo(keywords):
     return Supplier.objects.filter(Supplier_name__name__contains=keywords)
