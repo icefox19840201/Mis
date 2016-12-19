@@ -8,7 +8,7 @@ def pagging(request,data=None):
 
        currentPage=int(utils.GetData(request,"page")) if utils.GetData(request,"page")  else 1
        if currentPage==0:currentPage=1
-       pageSize=15
+       pageSize=10
        start=(currentPage-1)*pageSize if currentPage>=1 else 0
        totalCount=supplier_DAC.getAllSupplierInfo().__len__() if not data else data.__len__()
        pagecount=divmod(totalCount,pageSize)[0] if divmod(totalCount,pageSize)[1]==0 else divmod(totalCount,pageSize)[0]+1
