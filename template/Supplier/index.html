@@ -51,7 +51,9 @@
         </li>
     </ul>
 </div>
+     <div id="tab1">
 
+     </div>
         <table class="table table-bordered table-striped">
 						<thead>
 							<tr>
@@ -175,17 +177,28 @@
     </div>
 
 {%endblock%}
-
+{% block css %}
+      <link rel="stylesheet" href="/static/css/alert/sweet-alert.css">
+      <link rel="stylesheet" href="/static/css/alert/sweet-alert.css">
+{% endblock %}
 {% block js%}
+    <script type="text/javascript" src="/static/js/alert/sweet-alert.js"></script>
     <script type="text/javascript">
+
         function del(id) {
+              isok=confirm("你确定删除该记录吗?")
+            if (isok){
             $.ajax({
+
                         url: "/supplier/supm/?action=delete&id=" + id,
                         type: "GET",
                         success: function (data) {
-                            alert(data.Msg)
-                            location.href="/supplier/index/"
-                        },
+
+                          result= swal("Good job!", "You clicked the button!", "success")
+                          location.href="/supplier/index/"
+
+
+                          },
                          error: function (data) {
                              console.log(data)
                                      alert(data.Msg+"\n" +"原因："+data.reson)
@@ -193,7 +206,7 @@
 
                     }
             )
-        }
+        }}
 
         function  viewDatails(id){
             $.ajax({
@@ -217,7 +230,6 @@
             })
             $("#example").modal()
         }
-
 
 
     </script>
