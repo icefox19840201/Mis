@@ -195,8 +195,12 @@
                         success: function (data) {
 
                           result= swal("Good job!", "You clicked the button!", "success")
-                          location.href="/supplier/index/"
 
+                            if (result){
+                                $(".confirm").click(function(){
+                                    location.href="/supplier/index/"
+                                })
+                            }
 
                           },
                          error: function (data) {
