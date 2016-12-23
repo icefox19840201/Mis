@@ -29,6 +29,7 @@
             <a href="/supplier/ex/">导出供应商列表</a>
         </li>
         <li>
+
             <a href="#">维护记录</a>
         </li>
         <li>
@@ -51,6 +52,7 @@
         </li>
     </ul>
 </div>
+
      <div id="tab1">
 
      </div>
@@ -194,11 +196,11 @@
                         type: "GET",
                         success: function (data) {
 
-                          result= swal("Good job!", "You clicked the button!", "success")
+                          result= swal("Good job!", data.Msg, "success")
 
                             if (result){
                                 $(".confirm").click(function(){
-                                    location.href="/supplier/index/"
+                                    location.href="/supplier/index/?datetime="+datetime.now()
                                 })
                             }
 
