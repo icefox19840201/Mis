@@ -48,6 +48,7 @@ def Is_PUT(request):
         return True
     return False
 
+
 def Is_DELETE(request):
     if request.method=="DELETE":
         return True
