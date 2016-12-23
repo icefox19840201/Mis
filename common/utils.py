@@ -43,5 +43,20 @@ def Is_POST(request):
         return True
     return False
 
+def Is_PUT(request):
+    if request.method=="PUT":
+        return True
+    return False
+
+def Is_DELETE(request):
+    if request.method=="DELETE":
+        return True
+    return False
+
+def IS_AJAX(request):
+    if request.is_ajax():
+        return True
+    return False
+
 
 
