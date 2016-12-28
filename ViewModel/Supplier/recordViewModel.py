@@ -39,7 +39,7 @@ class Record(object):
     @property
     def SuportTime(self):
         return self.__suportTime
-    @SuportTime.deleter
+    @SuportTime.setter
     def SuportTime(self,value):
         self.__suportTime=value
     @SuportTime.deleter

@@ -146,8 +146,11 @@ def Export(request):
     return response
 
 def supportRecord(request):
+    if utils.Is_GET(request):
+        result=supplier_DAC.getRecordViewModel()
+        supportType=supplier_DAC.GetSupportType()
+        return render_to_response(urlconfig.record,{'data':result,"dropDownListData":supportType})
 
-    return render_to_response(urlconfig.record)
 
 
 

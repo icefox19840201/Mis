@@ -1,8 +1,9 @@
 #encoding:utf-8
-from Supplier.models import Supplier, SupplierBusinessInfo
+from Supplier.models import Supplier, SupplierBusinessInfo, Supplier_Support_Record, SupportType
 from django.db import connection
-
+from . import sqlhelper
 from ViewModel.Supplier.supplierViewModel import supplierViewMode
+from ViewModel.Supplier.recordViewModel import Record
 
 
 def getAllSupplierInfo():
@@ -48,7 +49,7 @@ def expSupplierInfo():
         on
         supplier.Supplier_name_id=business.id
        """
-    return execquerySql(sql)
+    return sqlhelper.execquerySql(sql)
 
 def getDetails(id):
     if not id:
@@ -86,19 +87,7 @@ def getDetails(id):
 
 
        """.format(id)
-    return  getSingleResultByQuerySql(sql)
-
-def execquerySql(sql):
-    cursor=connection.cursor()
-    cursor.execute(sql)
-    result=cursor.fetchall()
-    return result
-
-def getSingleResultByQuerySql(sql):
-    cursor=connection.cursor()
-    cursor.execute(sql)
-    result=cursor.fetchone()
-    return result
+    return  sqlhelper.getSingleResultByQuerySql(sql)
 
 def getDetailsObjectById(id):
       supplierDetails=getDetails(int(id))
@@ -115,6 +104,37 @@ def getDetailsObjectById(id):
       viewmodel.Supplier_phone=supplierDetails[9]
       viewmodel.ZipCode=supplierDetails[10]
       return viewmodel
+
+def getSupportRecord():
+    sql="""
+                    SELECT
+                    record.rec_info,
+                    record.rec_support_user,
+                supporttype.supportDesc,
+                    record.rec_date
+            from supplier_supplier_support_record record
+            LEFT JOIN supplier_supporttype supporttype
+            on
+            record.Support_Type_id=supportType.id
+       """
+    return  sqlhelper.execquerySql(sql)
+
+
+def getRecordViewModel():
+
+      sqlresult=getSupportRecord()
+      result=[]
+      for item in sqlresult:
+            viewModel=Record()
+            viewModel.SupportContent=item[0]
+            viewModel.SupportUser=item[1]
+            viewModel.SuportType=item[2]
+            viewModel.SuportTime=str(item[3])
+            result.append(viewModel)
+      return result
+
+def GetSupportType():
+    return SupportType.objects.all().values("id","supportDesc")
 
 
 

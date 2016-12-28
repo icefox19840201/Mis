@@ -1,9 +1,16 @@
 {%extends "Master/_layout.html"%}
 {%block content%}
+
 <div class="span9">
 					<h1>
-						维护记录查询
+						维护记录
 					</h1>
+    <div style="float: right;">
+    <form class="navbar-search pull-left" action="">
+        <input class="search-query span2" placeholder="搜索" type="text" title="按人名，内容，类型，时间搜索">
+        <input type="button" value="搜索">
+	</form>
+    </div>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
@@ -19,67 +26,29 @@
 								<th>
 									维护时间
 								</th>
-								<th>
-									操作
-								</th>
+
 
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+                        {% for item in data %}
+                            <tr>
 								<td>
-									Nike.com Redesign
+									<span class="badge">{{ item.SupportUser }}</span>
 								</td>
 								<td>
-									Monsters Inc
+									<span class="badge">{{ item.SupportContent }}</span>
 								</td>
 								<td>
-									<span class="badge">11</span>
+									<span class="badge">{{ item.SuportType }}</span>
 								</td>
 								<td>
-									<span class="badge">2</span>
-								</td>
-								<td>
-									<span class="badge">4</span>
+									<span class="badge">{{ item.SuportTime }}</span>
 								</td>
 
-							</tr>
-							<tr>
-								<td>
-									Twitter Server Consulting
-								</td>
-								<td>
-									Bad Robot
-								</td>
-								<td>
-									<span class="badge">7</span>
-								</td>
-								<td>
-									<span class="badge">3</span>
-								</td>
-								<td>
-									<span class="badge">0</span>
-								</td>
 
 							</tr>
-							<tr>
-								<td>
-									Childrens Book Illustration
-								</td>
-								<td>
-									Evil Genius
-								</td>
-								<td>
-									<span class="badge">10</span>
-								</td>
-								<td>
-									<span class="badge">2</span>
-								</td>
-								<td>
-									<span class="badge">1</span>
-								</td>
-
-							</tr>
+                        {% endfor %}
 						</tbody>
 					</table>
 
@@ -88,19 +57,24 @@
 						<fieldset>
 							<legend>新增维护记录</legend>
 							<div class="control-group">
-								<label class="control-label" for="input01">Project Name</label>
+								<label class="control-label" for="input01">维护人：</label>
 								<div class="controls">
 									<input type="text" class="input-xlarge" id="input01" />
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="select01">Client</label>
+								<label class="control-label" for="select01">维护类型</label>
 								<div class="controls">
-									<select id="select01"> <option>-- Select client --</option> <option>Bad Robot</option> <option>Evil Genius</option> <option>Monsters Inc</option> </select>
+									<select id="select01"> <option>-- 请选择t --</option>
+                                        {% for item in dropDownListData %}
+                                            <option value="{{ item.id }}">{{ item.supportDesc }}</option>
+                                        {% endfor %}
+
+                                    </select>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="textarea">Project Summary</label>
+								<label class="control-label" for="textarea">维护内容</label>
 								<div class="controls">
 									<textarea class="input-xlarge" id="textarea" rows="3"></textarea>
 								</div>
