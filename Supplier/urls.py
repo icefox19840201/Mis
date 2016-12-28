@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^search/$',search),
     url(r'^supm',supplierManage),
     url(r'^ex',Export),
+    url(r'^record/$',supportRecord),
     url(r'$',index)
 
 

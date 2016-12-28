@@ -29,8 +29,7 @@
             <a href="/supplier/ex/">导出供应商列表</a>
         </li>
         <li>
-
-            <a href="#">维护记录</a>
+            <a href="/supplier/record/" id="record">维护记录</a>
         </li>
         <li>
             <a href="#">维保查询</a>
@@ -182,9 +181,11 @@
 {% block css %}
       <link rel="stylesheet" href="/static/css/alert/sweet-alert.css">
       <link rel="stylesheet" href="/static/css/alert/sweet-alert.css">
+        <link rel="stylesheet" href="/static/css/colorbox/colorbox.css">
 {% endblock %}
 {% block js%}
     <script type="text/javascript" src="/static/js/alert/sweet-alert.js"></script>
+    <script type="text/javascript" src="/static/js/colorbox/colorbox.js"></script>
     <script type="text/javascript">
 
         function del(id) {
@@ -236,7 +237,6 @@
             })
             $("#example").modal()
         }
-
 
     </script>
 {% endblock %}

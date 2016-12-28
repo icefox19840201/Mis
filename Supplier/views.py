@@ -147,7 +147,7 @@ def Export(request):
 
 def supportRecord(request):
 
-    pass
+    return render_to_response(urlconfig.record)
 
 
 
