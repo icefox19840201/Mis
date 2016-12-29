@@ -7,7 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render,render_to_response,HttpResponseRedirect
 from DataAccess.Supplier import supplier_DAC
 from ViewModel.Supplier.supplierViewModel import supplierViewMode
-from common import utils
+from common import utils,control
 from common.Supplier import urlconfig,actionConfig
 from Supplier.supperForm import SupplierForm
 from common.Supplier import supplier_utils
@@ -23,6 +23,7 @@ def index(request):
     """
     page_id=''
     stringLink=''
+    dropDownList=control.getDropdownList()
     if utils.Is_GET(request):
        page_id=str(uuid.uuid4())
        request.session["pageid"]=page_id
@@ -33,7 +34,8 @@ def index(request):
                                      'form':SupplierForm(),
                                      'data':supplier_DAC.getAllSupplierInfo()[start:end],
                                      'pageId':page_id,
-                                     'paging_link':stringLink
+                                     'paging_link':stringLink,
+                                     'dropdownlist':dropDownList
                                  }
                                  )
 
@@ -50,7 +52,8 @@ def index(request):
                                            'form':SupplierForm(),
                                            'data':supplier_DAC.getAllSupplierInfo()[start:end],
                                            'pageId':page_id,
-                                            'paging_link':stringLink
+                                            'paging_link':stringLink,
+                                            'dropdownlist':dropDownList
                                           }
 
                                           )
@@ -64,7 +67,8 @@ def index(request):
                                                'form':SupplierForm(),
                                                'data':supplier_DAC.getAllSupplierInfo()[start:end],
                                                'pageId':page_id,
-                                               'paging_link':stringLink
+                                               'paging_link':stringLink,
+                                                'dropdownlist':dropDownList
                                            }
                  )
 
@@ -149,7 +153,8 @@ def supportRecord(request):
     if utils.Is_GET(request):
         result=supplier_DAC.getRecordViewModel()
         supportType=supplier_DAC.GetSupportType()
-        return render_to_response(urlconfig.record,{'data':result,"dropDownListData":supportType})
+        dropDownList=control.getDropdownList()
+        return render_to_response(urlconfig.record,{'data':result,"dropDownListData":supportType,"dropDownList":dropDownList})
 
 
 
