@@ -53,14 +53,14 @@
 						</tbody>
 					</table>
 
-					<a class="toggle-link" href="#new-project"><i class="icon-plus"></i> 新增记录</a>
-					<form id="new-project" class="form-horizontal hidden">
+					<a class="toggle-link" href="#newRecord"><i class="icon-plus"></i> 新增记录</a>
+					<form id="newRecord" name="newRecord" class="form-horizontal hidden">
 						<fieldset>
 							<legend>新增维护记录</legend>
 							<div class="control-group">
 								<label class="control-label" for="input01">维护人：</label>
 								<div class="controls">
-									<input type="text" class="input-xlarge" id="input01" />
+									<input type="text" class="input-xlarge" id="supportUser" name="supportUser" />
 								</div>
 							</div>
 							<div class="control-group">
@@ -68,7 +68,7 @@
 								<div class="controls">
 									<select id="select01"> <option>-- 请选择t --</option>
                                         {% for item in dropDownListData %}
-                                            <option value="{{ item.id }}">{{ item.supportDesc }}</option>
+                                            <option value="{{ item.id }}" id="type">{{ item.supportDesc }}</option>
                                         {% endfor %}
 
                                     </select>
@@ -77,13 +77,27 @@
 							<div class="control-group">
 								<label class="control-label" for="textarea">维护内容</label>
 								<div class="controls">
-									<textarea class="input-xlarge" id="textarea" rows="3"></textarea>
+									<textarea class="input-xlarge" id="content" name="content" rows="3"></textarea>
 								</div>
 							</div>
 							<div class="form-actions">
-								<button type="submit" class="btn btn-primary">Create</button> <button class="btn">Cancel</button>
+								<button onclick="submitform()" type="button" class="btn btn-primary" id="submit" name="submit">Create</button> <button class="btn">Cancel</button>
 							</div>
 						</fieldset>
 					</form>
 				</div>
 {%endblock%}
+
+{% block js%}
+    <script type="text/javascript">
+    function  submitform(){
+        $.ajax({
+            url:"/supplier/record/",
+            type:"POST",
+            data:$("#newRecord").serialize()
+        })
+
+
+    }
+    </script>
+{% endblock %}

@@ -6,6 +6,7 @@ from django.contrib.messages.storage import session
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render,render_to_response,HttpResponseRedirect
 from DataAccess.Supplier import supplier_DAC
+from ViewModel.Supplier.recordViewModel import Record
 from ViewModel.Supplier.supplierViewModel import supplierViewMode
 from common import utils,control
 from common.Supplier import urlconfig,actionConfig
@@ -155,6 +156,13 @@ def supportRecord(request):
         supportType=supplier_DAC.GetSupportType()
         dropDownList=control.getDropdownList()
         return render_to_response(urlconfig.record,{'data':result,"dropDownListData":supportType,"dropDownList":dropDownList})
+    elif utils.Is_POST(request):
+        if utils.IS_AJAX(request):
+            recordViewModel=Record()
+            recordViewModel.SupportUser=utils.GetData(request,"supportUser")
+            recordViewModel.SupportContent=utils.GetData(request,"content")
+            recordViewModel.SuportType=utils.GetData(request,"type")
+
 
 
 
