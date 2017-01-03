@@ -66,9 +66,10 @@
 							<div class="control-group">
 								<label class="control-label" for="select01">维护类型</label>
 								<div class="controls">
+
 									<select id="select01"> <option>-- 请选择t --</option>
                                         {% for item in dropDownListData %}
-                                            <option value="{{ item.id }}" id="type">{{ item.supportDesc }}</option>
+                                            <option value="{{ item.id }}" id="type" name="type">{{ item.supportDesc }}</option>
                                         {% endfor %}
 
                                     </select>
@@ -84,6 +85,7 @@
 								<button onclick="submitform()" type="button" class="btn btn-primary" id="submit" name="submit">Create</button> <button class="btn">Cancel</button>
 							</div>
 						</fieldset>
+                     <input type="hidden" id="selectValue" name="selectValue" value=""/>
 					</form>
 				</div>
 {%endblock%}
@@ -91,10 +93,17 @@
 {% block js%}
     <script type="text/javascript">
     function  submitform(){
+
         $.ajax({
             url:"/supplier/record/",
             type:"POST",
-            data:$("#newRecord").serialize()
+            data:$("#newRecord").serializeArray(),
+            success:function(data){
+
+            },
+            error:function(data){
+
+        }
         })
 
 

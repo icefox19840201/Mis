@@ -153,15 +153,21 @@ def Export(request):
 def supportRecord(request):
     if utils.Is_GET(request):
         result=supplier_DAC.getRecordViewModel()
-        supportType=supplier_DAC.GetSupportType()
+        #supportType=supplier_DAC.GetSupportType()
         dropDownList=control.getDropdownList()
-        return render_to_response(urlconfig.record,{'data':result,"dropDownListData":supportType,"dropDownList":dropDownList})
+        return render_to_response(urlconfig.record,{'data':result,"dropDownListData":supplier_DAC.GetSupportType(),"dropDownList":dropDownList})
     elif utils.Is_POST(request):
         if utils.IS_AJAX(request):
             recordViewModel=Record()
             recordViewModel.SupportUser=utils.GetData(request,"supportUser")
             recordViewModel.SupportContent=utils.GetData(request,"content")
             recordViewModel.SuportType=utils.GetData(request,"type")
+            try:
+                supplier_DAC.createSupportRecord(recordViewModel)
+                return JsonResponse({"MSG":"添加成功"})
+            except Exception as e:
+                return JsonResponse({"MSG":"添加失败,原因如下:%s"%e.message})
+
 
 
 

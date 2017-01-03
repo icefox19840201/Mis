@@ -1,6 +1,8 @@
 #encoding:utf-8
 from django.utils.safestring import mark_safe
 
+from DataAccess.Supplier import supplier_DAC
+
 
 def getDropdownList():
     html="""
@@ -36,4 +38,34 @@ def getDropdownList():
                 </ul>
             </div>
     """
+    return mark_safe(html)
+
+def getSupportTypeDropDownList():
+    html="""
+      <div class="control-group">
+								<label class="control-label" for="input01">维护类型:</label>
+								<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" selectvalue="">
+    请选择---
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+
+    """
+    dropdownListData=supplier_DAC.GetSupportType()
+
+    for item in dropdownListData:
+         html+= """<li role="presentation">
+                    <a role="menuitem"
+                        href="#" onclick="selectSelectedvalue(this)">
+                        {0}
+                        </a>
+                    </li>
+             """.format(item.supportDesc)
+    html+="""
+                <input type="hidden" id="roleid" name="roleid" value="-1"/>
+                </ul>
+            </div>
+        """
     return mark_safe(html)

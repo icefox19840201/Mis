@@ -135,8 +135,11 @@ def getRecordViewModel():
 
 def GetSupportType():
     return SupportType.objects.all().values("id","supportDesc")
+
 def createSupportRecord(viewModel):
     model=Supplier_Support_Record()
+    model.Support_Type=viewModel.SuportType
+    model.rec_info=viewModel.SupportContent
     try:
 
         model.save()
