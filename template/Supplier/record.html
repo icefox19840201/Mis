@@ -31,7 +31,7 @@
 
 							</tr>
 						</thead>
-						<tbody>
+						<tbody  >
                         {% for item in data %}
                             <tr>
 								<td>
@@ -66,13 +66,8 @@
 							<div class="control-group">
 								<label class="control-label" for="select01">维护类型</label>
 								<div class="controls">
+                                    {{ supportType }}
 
-									<select id="select01"> <option>-- 请选择t --</option>
-                                        {% for item in dropDownListData %}
-                                            <option value="{{ item.id }}" id="type" name="type">{{ item.supportDesc }}</option>
-                                        {% endfor %}
-
-                                    </select>
 								</div>
 							</div>
 							<div class="control-group">
@@ -91,22 +86,30 @@
 {%endblock%}
 
 {% block js%}
+      <script type="text/javascript" src="/static/js/alert/sweet-alert.js"></script>
     <script type="text/javascript">
     function  submitform(){
 
         $.ajax({
             url:"/supplier/record/",
             type:"POST",
-            data:$("#newRecord").serializeArray(),
+            data:$("#newRecord").serialize(),
             success:function(data){
-
-            },
+                 swal("Good job!", data.Msg, "success")
+                },
             error:function(data){
-
-        }
+                swal("Error",data.Msg,"error")
+            }
         })
+    }
 
-
+    function selectSelectedvalue(obj){
+        $("#dropdownMenu1").text(obj.text)
+        $("#selectValue").val(obj.id)
     }
     </script>
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/alert/sweet-alert.css">
+    <link rel="stylesheet" href="/static/css/alert/sweet-alert.css">
 {% endblock %}

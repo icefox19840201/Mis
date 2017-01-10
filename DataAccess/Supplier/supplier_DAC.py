@@ -1,4 +1,6 @@
 #encoding:utf-8
+import datetime
+
 from Supplier.models import Supplier, SupplierBusinessInfo, Supplier_Support_Record, SupportType
 from django.db import connection
 from . import sqlhelper
@@ -138,8 +140,10 @@ def GetSupportType():
 
 def createSupportRecord(viewModel):
     model=Supplier_Support_Record()
-    model.Support_Type=viewModel.SuportType
+    model.Support_Type=SupportType.objects.get(id=int(viewModel.SuportType))
     model.rec_info=viewModel.SupportContent
+    model.rec_support_user=viewModel.SupportUser
+    model.rec_date=datetime.datetime.now()
     try:
 
         model.save()
