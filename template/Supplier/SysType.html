@@ -1,0 +1,270 @@
+
+{%extends "Master/_layout.html"%}
+{%block content%}
+<div class="span9">
+
+    <a class="toggle-link" href="#suplier"><i class="icon-plus"></i>添加供应商</a>
+    <form id="suplier" class="form-horizontal hidden">
+	<table class="table table-bordered table-striped" id="supplier">
+						<thead>
+							<tr>
+								<th>
+									供应商名称
+								</th>
+								<th>
+									业务类型
+								</th>
+								<th>
+									是否为核心业务
+								</th>
+								<th>
+									公司电话号码
+								</th>
+                                <th>
+									邮编
+								</th>
+								<th>
+									经理
+								</th>
+
+                                <th>
+									供应商地址
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<input id="supplierName" name="supplierName"  class="input-xlarge" onclick="bigwidth()"  onblur="restore()" style="width: 60px;" />
+								</td>
+								<td>
+									<input id="bisType" name="bisType" style="width: 60px";/>
+								</td>
+								<td>
+									<input id="isCore" name="isCore" style="width: 60px;"/>
+								</td>
+								<td>
+									<input id="Phone" name="Phone" style="width: 60px;"/>
+								</td>
+								<td>
+									<input id="zipCode" name="zipCode" style="width: 60px;"/>
+								</td>
+								<td>
+								<input id="manager" name="manager"  style="width: 60px;"/>
+								</td>
+
+                                <td>
+								<input id="address" name="address"  onclick="bigwidth()" onblur="restore()" style="width: 60px;"/>
+								</td>
+							</tr>
+
+
+						</tbody>
+					</table>
+        <div style="text-align: center">
+            <input type="button" value="创建" class="btn-primary" onclick="CreateSuppiler()">
+             <input type="reset" value="取消" class="btn">
+        </div>
+        </form>
+					<a class="toggle-link" href="#systype"><i class="icon-plus"></i>供应商列表</a>
+					<form id="systype" class="form-horizontal hidden">
+						<table class="table table-bordered table-striped" id="supplier">
+						<thead>
+							<tr>
+								<th>
+									供应商名称
+								</th>
+								<th>
+									业务类型
+								</th>
+								<th>
+									是否为核心业务
+								</th>
+								<th>
+									公司电话号码
+								</th>
+								<th>
+									邮编
+								</th>
+								<th>
+									经理
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+                        {% for item in data %}
+                            <tr>
+								<td>
+									{{ item.name }}
+								</td>
+								<td>
+
+								</td>
+								<td>
+									{% if item.bus_info_isCore  %}
+                                        是
+                                    {% else %}
+                                        否
+                                    {% endif %}
+								</td>
+								<td>
+									<span class="badge">2</span>
+								</td>
+								<td>
+									<span class="badge">4</span>
+								</td>
+								<td>
+									<div class="progress">
+										<div class="bar" style="width: 60%;"></div>
+									</div>
+								</td>
+							</tr>
+                        {% endfor %}
+
+
+						</tbody>
+					</table>
+					</form>
+
+	<a class="toggle-link" href="#ITRoom"><i class="icon-plus"></i>机房进出登记</a>
+					<form id="ITRoom" class="form-horizontal hidden">
+						<table class="table table-bordered table-striped" id="supplier">
+						<thead>
+							<tr>
+								<th>
+									Name
+								</th>
+								<th>
+									Client
+								</th>
+								<th>
+									Tasks
+								</th>
+								<th>
+									Messages
+								</th>
+								<th>
+									Files
+								</th>
+								<th>
+									Progress
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									Nike.com Redesign
+								</td>
+								<td>
+									Monsters Inc
+								</td>
+								<td>
+									<span class="badge">11</span>
+								</td>
+								<td>
+									<span class="badge">2</span>
+								</td>
+								<td>
+									<span class="badge">4</span>
+								</td>
+								<td>
+									<div class="progress">
+										<div class="bar" style="width: 60%;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Twitter Server Consulting
+								</td>
+								<td>
+									Bad Robot
+								</td>
+								<td>
+									<span class="badge">7</span>
+								</td>
+								<td>
+									<span class="badge">3</span>
+								</td>
+								<td>
+									<span class="badge">0</span>
+								</td>
+								<td>
+									<div class="progress">
+										<div class="bar" style="width: 90%;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Childrens Book Illustration
+								</td>
+								<td>
+									Evil Genius
+								</td>
+								<td>
+									<span class="badge">10</span>
+								</td>
+								<td>
+									<span class="badge">2</span>
+								</td>
+								<td>
+									<span class="badge">1</span>
+								</td>
+								<td>
+									<div class="progress">
+										<div class="bar" style="width: 20%;"></div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</form>
+				</div>
+{%endblock%}
+
+{% block js %}
+    <script type="text/javascript" src="/static/js/alert/sweet-alert.js"></script>
+    <script type="text/javascript">
+    style=''
+
+    function bigwidth(){
+         input=$("#supplierName")
+         style=input.attr("style")
+         input.css("width",200)
+         input.css("font-size","x-large")
+         address=$("#address")
+         style=address.attr("style")
+         address.css("width",300)
+         address.css("font-size","x-large")
+
+
+    }
+    function restore(){
+        input=$("#supplierName")
+        input.attr("style",style)
+        address=$("#address")
+        address.attr("style",style)
+        style=null
+    }
+    function CreateSuppiler(){
+        $.ajax({
+            url:'/supplier/systype/',
+            data:$("#suplier").serialize(),
+            type:'POST',
+           success:function(data){
+                 swal("Good job!", data.Msg, "success")
+                },
+            error:function(data){
+                swal("Error",data.Msg,"error")
+            }
+        })
+
+    }
+    </script>
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/alert/sweet-alert.css">
+    <link rel="stylesheet" href="/static/css/alert/sweet-alert.css">
+{% endblock %}

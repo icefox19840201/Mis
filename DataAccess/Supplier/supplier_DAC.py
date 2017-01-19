@@ -150,5 +150,15 @@ def createSupportRecord(viewModel):
     except Exception as e:
         raise e
 
+def CreateSupplier(model):
+    try:
+        model.save()
+    except Exception as e:
+        raise e
 
+def getSupplier():
+    try:
+       return SupplierBusinessInfo.objects.all()
+    except Exception as e:
+        raise e
 

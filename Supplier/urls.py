@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^supm',supplierManage),
     url(r'^ex',Export),
     url(r'^record/$',supportRecord),
+    url(r'^systype/$',sysTypeManage),
     url(r'$',index)
 
 

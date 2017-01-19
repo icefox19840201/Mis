@@ -6,6 +6,7 @@ from django.contrib.messages.storage import session
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render,render_to_response,HttpResponseRedirect
 from DataAccess.Supplier import supplier_DAC
+from Supplier.models import SupplierBusinessInfo
 from ViewModel.Supplier.recordViewModel import Record
 from ViewModel.Supplier.supplierViewModel import supplierViewMode
 from common import utils,control
@@ -16,6 +17,9 @@ from common.Supplier import supplier_utils
 from xlwt import *
 from django.core import serializers
 import os
+
+from common.Supplier.supplier_utils import sysRecordPagging
+
 
 def index(request):
     """
@@ -107,7 +111,10 @@ def supplierManage(request):
              supplier_DAC.deleteSupplierById(int(id))
              return JsonResponse({"Msg":"删除成功"})
         except Exception as err:
-            msg={"Msg":"删除失败","reson":err.message}
+            msg={
+                "Msg":"删除失败",
+                "reson":err.message
+            }
             return JsonResponse(msg)
 
 
@@ -151,12 +158,26 @@ def Export(request):
     return response
 
 def supportRecord(request):
+    '''
+    支持记录
+    :param request:
+    :return:
+    '''
     if utils.Is_GET(request):
         result=supplier_DAC.getRecordViewModel()
         supportType=control.getSupportTypeDropDownList()
         dropDownList=control.getDropdownList()
-
-        return render_to_response(urlconfig.record,{'data':result,"dropDownListData":dropDownList,"dropDownList":dropDownList,"supportType":supportType})
+        start,end,link,totalCount=sysRecordPagging(request)
+        return render_to_response(
+                                    urlconfig.record,
+                                    {
+                                        'data':result[start:end],
+                                        "dropDownListData":dropDownList,
+                                         "dropDownList":dropDownList,
+                                        "supportType":supportType,
+                                        "link":link if totalCount>10 else ""
+                                     }
+        )
     elif utils.Is_POST(request):
         if utils.IS_AJAX(request):
             recordViewModel=Record()
@@ -168,6 +189,34 @@ def supportRecord(request):
                 return JsonResponse({"MSG":"添加成功"})
             except Exception as e:
                 return JsonResponse({"MSG":"添加失败,原因如下:%s"%e.message})
+
+def sysTypeManage(request):
+    supplierList=supplier_DAC.getSupplier()
+    if utils.Is_GET(request):
+
+        render_to_response(urlconfig.systype,{"data":supplierList})
+    elif utils.IS_AJAX(request):
+        if utils.Is_POST(request):
+            try:
+                model=SupplierBusinessInfo()
+                model.name=utils.GetData(request,"supplierName")
+                model.bus_info_desc=utils.GetData(request,"bisType")
+                model.bus_info_isCore=utils.GetData(request,"isCore")
+                model.supplier_phone=utils.GetData(request,"Phone")
+                model.Zip_code=utils.GetData(request,"zipCode")
+                model.Address=utils.GetData(request,"address")
+                model.Manager=utils.GetData(request,"manager")
+                supplier_DAC.CreateSupplier(model)
+                return JsonResponse({"msg":"创建成功"})
+            except Exception as e:
+                return JsonResponse({"msg":"添加失败,原因如下:%s"%e.message})
+    return render_to_response(
+                                urlconfig.systype,
+                                {
+                                    "data":supplierList
+                                }
+    )
+
 
 
 

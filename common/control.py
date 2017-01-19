@@ -33,7 +33,7 @@ def getDropdownList():
                         <a href="#">添加供应商</a>
                     </li>
                       <li>
-                        <a href="#">添加系统类型</a>
+                        <a href="/supplier/systype/">添加系统类型</a>
                     </li>
                 </ul>
             </div>
