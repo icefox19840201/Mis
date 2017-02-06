@@ -38,14 +38,6 @@ class SupportType(models.Model):
     createDate=models.DateTimeField("创建日期",auto_now_add=True)
     updateDate=models.DateTimeField("创建日期",auto_now=True)
 
-# class SupplierInfo(models.Model):
-#       Supplier_phone=models.CharField("供应商公司电话号码",max_length=20,null=True)
-#       Manager=models.CharField("供应商经理",max_length=10,null=True)
-#       Address=models.CharField("供应商地址",max_length=200,null=True)
-#       Zip_code=models.CharField("邮政编码",max_length=6,null=True)
-#       Supplier_BizInfo=models.ForeignKey('SupplierBusinessInfo')
-#       createDate=models.DateTimeField("创建日期",auto_now_add=True)
-#       updateDate=models.DateTimeField("更新日期",auto_now=True)
 
 class SupplierBusinessInfo(models.Model):
     name=models.CharField("供应商名称",max_length=100,null=False)

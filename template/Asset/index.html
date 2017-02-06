@@ -1,0 +1,76 @@
+{% extends 'Master/_layout.html' %}
+{%block content%}
+<div class="span9">
+					<h4>
+						资产信息查看
+					</h4>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>
+                                    资产类别
+								</th>
+                                <th>
+									资产名称
+								</th>
+								<th>
+									资产位置
+								</th>
+								<th>
+									供应厂商
+								</th>
+                                <th>
+									使用人或部门
+								</th>
+
+							</tr>
+						</thead>
+						<tbody>
+                        {% for item in data %}
+                            	<tr>
+								<td>
+									{{ item.assetType.name }}
+								</td>
+								<td>
+									{{ item.AssetName }}
+								</td>
+								<td>
+									{{ item.Local }}
+								</td>
+								<td>
+									{{ item.Factory }}
+								</td>
+								<td>
+									{{ item.UserOrDep }}
+								</td>
+							</tr>
+                        {% endfor %}
+
+
+
+						</tbody>
+					</table>
+					<div class="pagination">
+						<ul>
+							<li class="disabled">
+								<a href="#">&laquo;</a>
+							</li>
+							<li class="active">
+								<a href="#">1</a>
+							</li>
+							<li>
+								<a href="#">2</a>
+							</li>
+							<li>
+								<a href="#">3</a>
+							</li>
+							<li>
+								<a href="#">4</a>
+							</li>
+							<li>
+								<a href="#">&raquo;</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+{%endblock%}
