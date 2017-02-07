@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 #encoding:utf-8
 from django.db import models
-import datetime
+
 
 # Create your models here.
 class AssetList(models.Model):

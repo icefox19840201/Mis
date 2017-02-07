@@ -4,6 +4,11 @@
 					<h4>
 						资产信息查看
 					</h4>
+                   <div  style="float: right">
+                       <form method="POST" action="/asset/search/" style="vertical-align: bottom">
+                           <input type="text" id="search" name="search"/><input type="submit" value="search" class="btn-primary"/>
+                       </form>
+                   </div>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
@@ -29,7 +34,9 @@
                         {% for item in data %}
                             	<tr>
 								<td>
-									{{ item.assetType.name }}
+
+									{{ item.assetType }}
+
 								</td>
 								<td>
 									{{ item.AssetName }}
@@ -50,27 +57,9 @@
 
 						</tbody>
 					</table>
-					<div class="pagination">
-						<ul>
-							<li class="disabled">
-								<a href="#">&laquo;</a>
-							</li>
-							<li class="active">
-								<a href="#">1</a>
-							</li>
-							<li>
-								<a href="#">2</a>
-							</li>
-							<li>
-								<a href="#">3</a>
-							</li>
-							<li>
-								<a href="#">4</a>
-							</li>
-							<li>
-								<a href="#">&raquo;</a>
-							</li>
-						</ul>
-					</div>
+
+    {{ link }}
+
+
 				</div>
 {%endblock%}

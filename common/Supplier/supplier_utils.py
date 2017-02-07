@@ -2,6 +2,7 @@
 from django.utils.safestring import mark_safe
 from DataAccess.Supplier import supplier_DAC
 from Supplier.models import Supplier_Support_Record
+from Asset.models import AssetList
 from common import utils
 
 
@@ -71,3 +72,4 @@ def sysRecordPagging(request):
             """
        stringLink=mark_safe(tempstr)
        return startPage,endpage,stringLink,totalCount
+
