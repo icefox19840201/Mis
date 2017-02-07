@@ -1,4 +1,5 @@
 #encoding:utf-8
+from django.http import JsonResponse
 from django.shortcuts import render,render_to_response
 from common.Asset import urlconfig
 from DataAccess.Asset import assetDac
@@ -36,3 +37,12 @@ def search(request):
                                     "data":viewModel
                                 }
                               )
+def showDetails(request):
+    '''
+    获取资产详细情况
+    :param request:
+    :return:
+    '''
+    id=int(utils.GetData(request,'id'))
+    data=assetDac.showDetails(id)
+    return JsonResponse(data)

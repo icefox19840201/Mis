@@ -1,5 +1,5 @@
 #encoding:utf-8
-from Asset.models import AssetType,AssetList
+from Asset.models import AssetType,AssetList,AssetDetails
 from ViewModel.Asset import assetViewModel
 from . import sqlhelper
 
@@ -19,17 +19,26 @@ def getAll():
         viewmodel.Local=item.local
         viewmodel.Factory=item.Factory
         viewmodel.UserOrDep=item.UserOrDep
+        viewmodel.Id=item.id
         viewmodelList.append(viewmodel)
 
     return viewmodelList
+
 def queryData(key):
+    '''
+    搜索
+    :param key:
+    :return:
+    '''
     sql= '''
                         SELECT * FROM(	select
+
                         list.assetName,
                         list.`local`,
                         list.Factory,
                         list.UserOrDep,
-                        type.`name`
+                        type.`name`,
+                         list.id
                     from asset_assetlist list
                     LEFT JOIN
                     asset_assettype type
@@ -57,5 +66,10 @@ def queryData(key):
         viewmodel.Local=item[1]
         viewmodel.Factory=item[2]
         viewmodel.UserOrDep=item[3]
+        viewmodel.Id=item[5]
         listData.append(viewmodel)
     return listData
+
+def showDetails(id):
+    data=AssetDetails.objects.get(id=id)
+    return data

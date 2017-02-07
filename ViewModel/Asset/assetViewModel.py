@@ -9,6 +9,7 @@ class assetViewModel():
         self.__UserOrDep=None
         self.__createDate=None
         self.__updateDate=None
+        self.__id=-1
     @property
     def AssetName(self):
         return self.__assetName
@@ -54,4 +55,11 @@ class assetViewModel():
     @UserOrDep.deleter
     def UserOrDep(self):
         del self.__UserOrDep
+    @property
+    def Id(self):
+        return self.__id
+    @Id.setter
+    def Id(self,value):
+        self.__id=value
+
 

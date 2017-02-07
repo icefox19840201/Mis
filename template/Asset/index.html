@@ -12,20 +12,23 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>
+								<th style="text-align: center">
                                     资产类别
 								</th>
-                                <th>
+                                <th style="text-align: center">
 									资产名称
 								</th>
-								<th>
+								<th style="text-align: center">
 									资产位置
 								</th>
-								<th>
+								<th style="text-align: center">
 									供应厂商
 								</th>
-                                <th>
+                                <th style="text-align: center">
 									使用人或部门
+								</th>
+                                 <th style="text-align: center">
+									详细
 								</th>
 
 							</tr>
@@ -33,23 +36,26 @@
 						<tbody>
                         {% for item in data %}
                             	<tr>
-								<td>
+								<td style="text-align: center">
 
 									{{ item.assetType }}
 
 								</td>
-								<td>
+								<td style="text-align: center">
 									{{ item.AssetName }}
 								</td>
-								<td>
+								<td style="text-align: center">
 									{{ item.Local }}
 								</td>
-								<td>
+								<td style="text-align: center">
 									{{ item.Factory }}
 								</td>
-								<td>
+								<td style="text-align: center">
 									{{ item.UserOrDep }}
 								</td>
+                                	<td style="text-align: center">
+									 <a href="#" onclick="showDetails({{ item.Id }})" class="view-link"  data-toggle="modal">详细 |</a>|<a href="#" class="view-link">删除</a>|<a href="#" class="view-link">删除</a>
+								    </td>
 							</tr>
                         {% endfor %}
 
@@ -62,4 +68,51 @@
 
 
 				</div>
+    <div id="example" class="modal hide fade in" style="display: none; ">
+        <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>资产信息</h3>
+        </div>
+        	<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th style="text-align: center">
+                                    用途
+								</th>
+                                <th style="text-align: center">
+									资产开始使用时间
+								</th>
+								<th style="text-align: center">
+									资产状态
+								</th>
+
+
+							</tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                </thead>
+                </table>
+    </div>
 {%endblock%}
+{% block js %}
+
+    <script type="text/javascript">
+
+         function  showDetails(id)
+         {
+             $.ajax({
+                  url:"/asset/details?id="+id,
+                type:"GET",
+                success:function(data) {
+
+                }
+
+
+             })
+             // $("#example").modal()
+         }
+    </script>
+{% endblock %}
